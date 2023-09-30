@@ -1,9 +1,7 @@
-package com.example.testmap.OptionBars;
+package com.example.testmap.MyGame.OptionBars;
 
 import android.content.Context;
 import android.graphics.Canvas;
-
-import com.example.testmap.OptionBars.MoveOption;
 
 public class OptionsBar {
         private MoveOption moveOption;

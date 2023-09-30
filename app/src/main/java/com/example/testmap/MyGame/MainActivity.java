@@ -1,4 +1,4 @@
-package com.example.testmap;
+package com.example.testmap.MyGame;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.example.testmap.Object;
+package com.example.testmap.MyGame.Object;
 
 import android.content.Context;
 import android.graphics.Canvas;

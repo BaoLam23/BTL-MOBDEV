@@ -1,4 +1,4 @@
-package com.example.testmap;
+package com.example.testmap.MyGame;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,7 +8,7 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
-import com.example.testmap.Object.House;
+import com.example.testmap.MyGame.Object.House;
 
 public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private GameLoop gameloop;

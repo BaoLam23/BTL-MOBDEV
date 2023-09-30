@@ -1,10 +1,9 @@
-package com.example.testmap.OptionBars;
+package com.example.testmap.MyGame.OptionBars;
 
 import android.content.Context;
 import android.graphics.Canvas;
 
-import com.example.testmap.Object.GameObject;
-import com.example.testmap.Object.Sprite;
+import com.example.testmap.MyGame.Object.GameObject;
 
 public class BasicOption extends GameObject {
         protected boolean is_showed=false;

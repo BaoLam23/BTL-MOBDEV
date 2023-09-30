@@ -1,4 +1,4 @@
-package com.example.testmap.Object;
+package com.example.testmap.MyGame.Object;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 
-import com.example.testmap.OptionBars.OptionsBar;
+import com.example.testmap.MyGame.OptionBars.OptionsBar;
 
 public class Structure extends GameObject {
 
