@@ -1,7 +1,9 @@
-# GameInWakingApp
--nội dung code được ở phần này :
-+tạo thành công lớp danh sách để tái sử dụng dễ dàngh
-+ tạo thêm giao diện túi đồ người chới
+# GameInWakingApp-Fix-
+-trong phần này nhóm em đã thêm được :
++ tính năng chọn item trong túi đồ và tự động xóa nó
++ sắp xếp lại item trong túi đồ cho phù hợp ngay sau khi xóa item
++ tạo một kiên trúc tương ứng với item chọn trong túi đồ để thêm vào city
 - mục tiêu tiếp theo :
-+ xây dựng cơ chế mua đồ 
-+ xây dựng cơ chế lấy item từ túi đồ để đặt lên map
++cải thiện thêm tính năng đặt item ngay khi chọn trong túi đồ
++ thêm chức năng tiền, các cơ chế thêm, bớt tiền
++ thêm chức năng gộp nhà

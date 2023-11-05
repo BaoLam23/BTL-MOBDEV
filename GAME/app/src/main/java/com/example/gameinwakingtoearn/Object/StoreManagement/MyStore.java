@@ -8,6 +8,8 @@ import android.graphics.Rect;
 import android.util.Log;
 
 import com.example.gameinwakingtoearn.Game;
+import com.example.gameinwakingtoearn.Object.BagManagement.MyBag;
+import com.example.gameinwakingtoearn.Object.CityStructures.Structure;
 import com.example.gameinwakingtoearn.Object.GameObject;
 import com.example.gameinwakingtoearn.R;
 
@@ -16,9 +18,9 @@ import java.util.ArrayList;
 public class MyStore extends GameObject {
     private StoreItemList itemList;
 
-    public MyStore(float x, float y, Context context) {
+    public MyStore(float x, float y, Context context, MyBag bag, ArrayList<Structure> city, int area[][]) {
         super(x, y, context, R.drawable.store,2,0);
-        itemList=new StoreItemList(context,30,200);
+        itemList=new StoreItemList(context,30,200,bag,city,area);
        this.image.setFrame(0,0,40,39,0);
        this.image.setFrame(40*4+7*3,0,40*4+7*3+40*4,39*4,1);
 

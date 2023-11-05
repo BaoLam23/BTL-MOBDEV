@@ -6,15 +6,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.example.gameinwakingtoearn.Game;
 import com.example.gameinwakingtoearn.Object.GameObject;
 import com.example.gameinwakingtoearn.R;
 
 public class MyListManagement {
 
-     private  int count_page=0;
+     private  int current_page =0;
      private boolean is_quit=false;
-     private int current_index_page=0;
+     private int quatities_of_page =0;
      private final int Max_page_of_ListManagement ;
      protected Rect background;
      private Paint paint=new Paint();
@@ -31,7 +30,7 @@ public class MyListManagement {
 
 
           this.menuItem=new ItemsList[this.Max_page_of_ListManagement];
-          this.menuItem[current_index_page]=new ItemsList(MAX_ITEM_IN_A_PAGE,Max_column,distant_between_items);
+          this.menuItem[quatities_of_page]=new ItemsList(MAX_ITEM_IN_A_PAGE,Max_column,distant_between_items);
 
           preButton =new GameObject(0,0,context, R.drawable.back_button,0,-20);
           preButton.getImage().setPos(this.background.left + (this.background.right-this.background.left)/2-this.preButton.getImage().getBitmap().getWidth()-Distance_between_next_and_pre_button,
@@ -62,21 +61,21 @@ public class MyListManagement {
 
      public void draw(Canvas canvas){
           canvas.drawRect(background,paint);
-          menuItem[count_page].draw(canvas);
+          menuItem[current_page].draw(canvas);
           nextButton.draw(canvas);
           preButton.draw(canvas);
           quitButton.draw(canvas);
-          drawText(canvas,menuItem[count_page].getNumber_of_page());
+          drawText(canvas,menuItem[current_page].getNumber_of_page());
      }
      public void checkIsClicked(float x,float y){
 
           nextButton.check_is_clicked(x,y);
-          if(nextButton.get_is_clicked() && this.count_page<this.current_index_page){
-               this.count_page++;
+          if(nextButton.get_is_clicked() && this.current_page <this.quatities_of_page){
+               this.current_page++;
           }
           preButton.check_is_clicked(x,y);
-          if(preButton.get_is_clicked() && this.count_page>0){
-               this.count_page--;
+          if(preButton.get_is_clicked() && this.current_page >0){
+               this.current_page--;
           }
 
           quitButton.check_is_clicked(x,y);
@@ -84,20 +83,22 @@ public class MyListManagement {
                this.is_quit=true;
           }
 
+          menuItem[current_page].check_is_clicked(x,y);
+
      }
-     public void addNewItem(AItemInList item){
-          if(menuItem[current_index_page].getQua_of_item()>=menuItem[current_index_page].getMaxItemInAPage()){
+     public void addNewItem(AItemInList item, int distant_from_CenterBg){
+          if(menuItem[quatities_of_page].getQua_of_item()>=menuItem[quatities_of_page].getMaxItemInAPage()){
 
-               current_index_page++;
+               quatities_of_page++;
 
-               menuItem[current_index_page] = new ItemsList(menuItem[0].getMaxItemInAPage(),
+               menuItem[quatities_of_page] = new ItemsList(menuItem[0].getMaxItemInAPage(),
                        menuItem[0].Max_column,
                        menuItem[0].distant_between_items);
           }
 
-          menuItem[current_index_page].addItem(item,this.background.left+10,
-                  this.background.bottom-this.background.top);
-          menuItem[current_index_page].setNumber_of_page(current_index_page+1);
+          menuItem[quatities_of_page].addItem(item,this.background.left+10,
+                  this.background.bottom-this.background.top,distant_from_CenterBg);
+          menuItem[quatities_of_page].setNumber_of_page(quatities_of_page +1);
      }
      public boolean getIs_quit(){
           return this.is_quit;
@@ -105,5 +106,18 @@ public class MyListManagement {
      public void setIs_quit(boolean b){
           this.is_quit=b;
      }
+
+     public int getQuatities_of_Page(){
+          return this.quatities_of_page;
+     }
+     public ItemsList getCurrentPage(){
+          return this.menuItem[current_page];
+     }
+     public ItemsList getLastPage(){
+          return this.menuItem[quatities_of_page];
+     }
+
+
+
 
 }

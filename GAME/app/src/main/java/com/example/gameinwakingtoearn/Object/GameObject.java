@@ -15,10 +15,12 @@ public class GameObject {
     protected final Sprite image;
     protected boolean is_clicked=false;
     protected final int zoom;
+    protected Context context;
 
     public GameObject(float x, float y, Context context, int id, int quatities_frame,int zoom){
         this.x=x;
         this.y=y;
+        this.context=context;
         this.image=new Sprite(context,id,quatities_frame);
         this.height=image.getBitmap().getHeight();
         this.width=image.getBitmap().getWidth();

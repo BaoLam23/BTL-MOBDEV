@@ -26,7 +26,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private GameLoop gameloop;
 
     private final Context context;
-    private int quatities_of_house=5;
 
     private ArrayList<Structure> mycity=new ArrayList<Structure>();
     private MyStore myStore;
@@ -47,13 +46,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         // đây chỉ là bộ nhớ test sau này cần lưu trong bộ nhớ máy
         this.area_of_land=new int[5000][5000];
-        for(int i=0;i<quatities_of_house;i++){
-            mycity.add(new House(200*i,500+200*i,context,area_of_land));
-        }
 
-
-        this.myStore=new MyStore(this.getScreenWidth()-300,this.getScreenHeight()-500,context);
-        this.mybag=new MyBag(50,this.getScreenHeight()-500,context);
+        this.mybag=new MyBag(50,this.getScreenHeight()-500,context,mycity,area_of_land);
+        this.myStore=new MyStore(this.getScreenWidth()-300,this.getScreenHeight()-500,context,this.mybag,mycity,area_of_land);
 
 
         setFocusable(true);

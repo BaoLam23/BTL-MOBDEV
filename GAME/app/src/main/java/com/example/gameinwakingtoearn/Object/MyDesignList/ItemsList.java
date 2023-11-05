@@ -18,7 +18,7 @@ public class ItemsList {
     protected final int Max_column;
     protected final int distant_between_items;
 
-    private int qua_of_item=0;
+    protected int qua_of_item=0;
     private AItemInList[] mylist;
 
     private int number_of_page=0;
@@ -34,7 +34,7 @@ public class ItemsList {
     public void draw(Canvas canvas){
 
         for(int i=0;i<qua_of_item;i++){
-            canvas.drawBitmap(mylist[i].getImage().getBitmap(), null,mylist[i].getImage().getPos(),null);
+            mylist[i].draw(canvas);
         }
     }
     public int getMaxItemInAPage(){
@@ -51,7 +51,10 @@ public class ItemsList {
     public int getQua_of_item(){
         return this.qua_of_item;
     }
-    public void addItem(AItemInList item,float x,float y){
+    public void setQua_of_item(int q){
+        this.qua_of_item=q;
+    }
+    public void addItem(AItemInList item,float x,float y, int distant_from_CenterBg){
 
         if(this.qua_of_item<MAX_ITEM_IN_A_PAGE) {
             Log.e("check :",qua_of_item/Max_column+"");
@@ -59,9 +62,15 @@ public class ItemsList {
             // thuật toán xây dựng cơ chế set vij trí cho từng item của list : thay vì dùng if,else => dùng quy tắc hash thông qua phép % hoặc / tùy cơ ứng biến
 
             item.getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
-                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column),
+                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column)+distant_from_CenterBg,
                     (int) (x+20+item.getWidth()+item.getZoom()+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
-                    (int) (y/2+item.getHeight()+item.getZoom()) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column));
+                    (int) (y/2+item.getHeight()+item.getZoom()) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column)+distant_from_CenterBg);
+
+            //set vị trí cho thành phần bên trong của items
+            item.itemstored.getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
+                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column) +distant_from_CenterBg,
+                    (int) (x+20+item.getWidth()+item.getZoom()+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
+                    (int) (y/2+item.getHeight()+item.getZoom()) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column) +distant_from_CenterBg);
 
 
             this.mylist[this.qua_of_item]=item;
@@ -72,4 +81,13 @@ public class ItemsList {
     public AItemInList[] getItemList(){
         return this.mylist;
     }
+
+    public void check_is_clicked(float x,float y){
+         Log.e("item list ","clicked ");
+        for(int i=0;i<qua_of_item;i++){
+            mylist[i].check_is_clicked(x,y);
+        }
+    }
+
+
 }
