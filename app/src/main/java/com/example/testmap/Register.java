@@ -14,15 +14,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
-    TextInputEditText editTextEmail, editTextPassword;
+    TextInputEditText editTextEmail, editTextPassword, editTextUsername;
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
@@ -49,6 +56,7 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
+        editTextUsername = findViewById(R.id.username);
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
@@ -89,14 +97,20 @@ public class Register extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
 //                                    FirebaseUser user = mAuth.getCurrentUser();
 //                                    updateUI(user);
-                                    Toast.makeText(Register.this, "Account created.",
-                                            Toast.LENGTH_SHORT).show();
+
+                                    FirebaseUser user = mAuth.getCurrentUser();
+
+                                    assert user != null;
+                                    saveUserToFirestore(user);
+
+//                                    Toast.makeText(Register.this, "Account created.",
+//                                            Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(Register.this, "Authentication failed.",
+                                    Toast.makeText(Register.this, "Email already used",
                                             Toast.LENGTH_SHORT).show();
 //                                    updateUI(null);
                                 }
@@ -105,4 +119,33 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+    private void saveUserToFirestore(FirebaseUser firebaseUser) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Create a new user object with desired fields
+        Map<String, Object> user = new HashMap<>();
+        user.put("uid", firebaseUser.getUid());
+        user.put("email", firebaseUser.getEmail());
+        user.put("username", String.valueOf(editTextUsername.getText()));
+        user.put("totalDistance", 0);
+        user.put("money", 100);
+        user.put("friendList", new ArrayList<String>());
+
+        // Add a new document to the "users" collection with the UID as the document ID
+        db.collection("users").document(firebaseUser.getUid())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "User saved to Firestore.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error saving user to Firestore.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }
