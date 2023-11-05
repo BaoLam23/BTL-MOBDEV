@@ -18,12 +18,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -130,6 +132,8 @@ public class Register extends AppCompatActivity {
         user.put("totalDistance", 0);
         user.put("money", 100);
         user.put("friendList", new ArrayList<String>());
+        user.put("createdAt", new Timestamp(new Date()));
+
 
         // Add a new document to the "users" collection with the UID as the document ID
         db.collection("users").document(firebaseUser.getUid())
@@ -144,6 +148,28 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(), "Error saving user to Firestore.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        Map<String, Object> mapData = new HashMap<>();
+
+        mapData.put("buildings", new ArrayList<>());
+
+        // Create a document in the 'maps' collection with the UID as the document ID
+        db.collection("maps").document(firebaseUser.getUid())
+                .set(mapData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Map document for user created successfully
+                        Log.d("Firestore", "Map document for user created successfully");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle the error
+                        Log.d("Firestore", "Error writing map document for user", e);
                     }
                 });
     }
