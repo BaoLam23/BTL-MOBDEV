@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "461261865463",
+    "project_id": "mobdev-db-73367",
+    "storage_bucket": "mobdev-db-73367.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461261865463:android:cbfd39ac9ec03ba2a02ef2",
+        "android_client_info": {
+          "package_name": "com.example.gameinwakingtoearn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMvUUCXNjfMAmPY8q6LisEP9ntFFlvP7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461261865463:android:7c971d1ac193ff6aa02ef2",
+        "android_client_info": {
+          "package_name": "com.example.testmap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMvUUCXNjfMAmPY8q6LisEP9ntFFlvP7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
