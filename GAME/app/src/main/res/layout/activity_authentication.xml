@@ -28,4 +28,10 @@
         android:layout_height="wrap_content"
         android:text="PlayGame" />
 
+    <Button
+        android:id="@+id/showMapBut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Running" />
+
 </LinearLayout>

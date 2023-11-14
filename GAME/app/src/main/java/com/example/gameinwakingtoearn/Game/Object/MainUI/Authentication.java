@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameUI;
+import com.example.gameinwakingtoearn.Game.Object.Running.GPS;
 import com.example.gameinwakingtoearn.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +26,7 @@ public class Authentication extends AppCompatActivity {
 
     TextView textView;
     Button button;
+    Button showMapBut;
     Button playgame;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -39,7 +41,7 @@ public class Authentication extends AppCompatActivity {
         button = findViewById(R.id.logout);
         textView = findViewById(com.example.gameinwakingtoearn.R.id.user_details);
         user = auth.getCurrentUser();
-
+        showMapBut = findViewById(R.id.showMapBut);
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -76,6 +78,15 @@ public class Authentication extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
 
                 Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        showMapBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), GPS.class);
                 startActivity(intent);
                 finish();
             }
