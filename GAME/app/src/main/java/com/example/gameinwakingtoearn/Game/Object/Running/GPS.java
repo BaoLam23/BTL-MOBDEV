@@ -1,5 +1,6 @@
 package com.example.gameinwakingtoearn.Game.Object.Running;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -26,6 +27,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
+
 public class GPS extends AppCompatActivity {
 
     public static final int DEFAULT_UPDATE_INTERVAL = 15;
@@ -93,7 +95,7 @@ public class GPS extends AppCompatActivity {
         btn_showMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(GPS.this,MapsActivity.class);
+                Intent i = new Intent(GPS.this, MapsActivity.class);
                 startActivity(i);
             }
         });
@@ -130,6 +132,16 @@ public class GPS extends AppCompatActivity {
 
     private void startLocationUpdates() {
         tv_updates.setText("Tracking now");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
 
     }
@@ -159,6 +171,17 @@ public class GPS extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "This app requires permission to work ", Toast.LENGTH_LONG).show();
                     finish();
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
                 }
         }
     }
