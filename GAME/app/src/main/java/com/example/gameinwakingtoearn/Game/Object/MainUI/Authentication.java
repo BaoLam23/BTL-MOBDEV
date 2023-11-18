@@ -2,6 +2,8 @@ package com.example.gameinwakingtoearn.Game.Object.MainUI;
 
 
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,14 +13,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameUI;
+
 import com.example.gameinwakingtoearn.Game.Object.Running.GPS;
+
+import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
+import com.example.gameinwakingtoearn.Game.Object.User.User;
+
 import com.example.gameinwakingtoearn.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -58,9 +67,10 @@ public class Authentication extends AppCompatActivity {
                         if (document != null && document.exists()) {
                             // Set the user info to your text views
 //                            textView.setText(document.getId());
-                            textView.setText(document.getString("username"));
+                            User user = CurrentUser.getInstance().getUser();
+                           //textView.setText(document.getString("username"));
                             Log.e("money :",document.get("money") + "");
-                            // ... set other attributes to the text views
+                            textView.setText(user.getEmail() + " " + user.getUsername());
                         } else {
                             Log.d("GameUI", "No such document");
                         }
@@ -71,11 +81,12 @@ public class Authentication extends AppCompatActivity {
             });
         }
 
-
+        // if click logout btn
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
+                CurrentUser.getInstance().setUser(null);
 
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);

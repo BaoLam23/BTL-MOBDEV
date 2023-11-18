@@ -123,7 +123,10 @@ attr allowStacking
 attr alpha
 attr alphabeticModifiers
 attr altSrc
+<<<<<<< Updated upstream
 attr ambientEnabled
+=======
+>>>>>>> Stashed changes
 attr animateCircleAngleTo
 attr animateMenuItems
 attr animateNavigationIcon
@@ -226,6 +229,7 @@ attr buttonStyle
 attr buttonStyleSmall
 attr buttonTint
 attr buttonTintMode
+<<<<<<< Updated upstream
 attr cameraBearing
 attr cameraMaxZoomPreference
 attr cameraMinZoomPreference
@@ -233,6 +237,8 @@ attr cameraTargetLat
 attr cameraTargetLng
 attr cameraTilt
 attr cameraZoom
+=======
+>>>>>>> Stashed changes
 attr cardBackgroundColor
 attr cardCornerRadius
 attr cardElevation
@@ -695,10 +701,13 @@ attr labelStyle
 attr labelVisibilityMode
 attr lastBaselineToBottomHeight
 attr lastItemDecorated
+<<<<<<< Updated upstream
 attr latLngBoundsNorthEastLatitude
 attr latLngBoundsNorthEastLongitude
 attr latLngBoundsSouthWestLatitude
 attr latLngBoundsSouthWestLongitude
+=======
+>>>>>>> Stashed changes
 attr layout
 attr layoutDescription
 attr layoutDuringTransition
@@ -794,13 +803,19 @@ attr listPreferredItemPaddingEnd
 attr listPreferredItemPaddingLeft
 attr listPreferredItemPaddingRight
 attr listPreferredItemPaddingStart
+<<<<<<< Updated upstream
 attr liteMode
+=======
+>>>>>>> Stashed changes
 attr logo
 attr logoAdjustViewBounds
 attr logoDescription
 attr logoScaleType
+<<<<<<< Updated upstream
 attr mapId
 attr mapType
+=======
+>>>>>>> Stashed changes
 attr marginHorizontal
 attr marginLeftSystemWindowInsets
 attr marginRightSystemWindowInsets
@@ -1287,6 +1302,7 @@ attr triggerId
 attr triggerReceiver
 attr triggerSlack
 attr ttcIndex
+<<<<<<< Updated upstream
 attr uiCompass
 attr uiMapToolbar
 attr uiRotateGestures
@@ -1295,11 +1311,16 @@ attr uiScrollGesturesDuringRotateOrZoom
 attr uiTiltGestures
 attr uiZoomControls
 attr uiZoomGestures
+=======
+>>>>>>> Stashed changes
 attr upDuration
 attr useCompatPadding
 attr useDrawerArrowDrawable
 attr useMaterialThemeColors
+<<<<<<< Updated upstream
 attr useViewLifecycle
+=======
+>>>>>>> Stashed changes
 attr values
 attr verticalOffset
 attr verticalOffsetWithText
@@ -1330,7 +1351,10 @@ attr windowNoTitle
 attr yearSelectedStyle
 attr yearStyle
 attr yearTodayStyle
+<<<<<<< Updated upstream
 attr zOrderOnTop
+=======
+>>>>>>> Stashed changes
 bool abc_action_bar_embed_tabs
 bool abc_config_actionMenuItemAllCaps
 bool mtrl_btn_textappearance_all_caps
@@ -3187,7 +3211,10 @@ id browser_actions_menu_items
 id browser_actions_menu_view
 id btn_login
 id btn_register
+<<<<<<< Updated upstream
 id button
+=======
+>>>>>>> Stashed changes
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3305,7 +3332,10 @@ id home
 id homeAsUp
 id honorRequest
 id horizontal_only
+<<<<<<< Updated upstream
 id hybrid
+=======
+>>>>>>> Stashed changes
 id icon
 id icon_group
 id icon_only
@@ -3337,7 +3367,10 @@ id list_item
 id loginNow
 id logout
 id m3_side_sheet
+<<<<<<< Updated upstream
 id map
+=======
+>>>>>>> Stashed changes
 id marquee
 id masked
 id match_constraint
@@ -3451,7 +3484,10 @@ id right_icon
 id right_side
 id rounded
 id row_index_key
+<<<<<<< Updated upstream
 id satellite
+=======
+>>>>>>> Stashed changes
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -3543,7 +3579,10 @@ id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
+<<<<<<< Updated upstream
 id terrain
+=======
+>>>>>>> Stashed changes
 id text
 id text2
 id textEnd
@@ -3599,6 +3638,10 @@ id unlabeled
 id up
 id useLogo
 id user_details
+<<<<<<< Updated upstream
+=======
+id username
+>>>>>>> Stashed changes
 id vertical_only
 id view_offset_helper
 id view_transition
@@ -3735,7 +3778,10 @@ layout abc_tooltip
 layout activity_authentication
 layout activity_login
 layout activity_main
+<<<<<<< Updated upstream
 layout activity_maps
+=======
+>>>>>>> Stashed changes
 layout activity_register
 layout activity_walking
 layout browser_actions_context_menu_page
@@ -4016,7 +4062,11 @@ string searchview_navigation_content_description
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string status_bar_notification_info_overflow
+<<<<<<< Updated upstream
 string title_activity_maps
+=======
+string username
+>>>>>>> Stashed changes
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog
@@ -5196,7 +5246,10 @@ styleable LinearLayoutCompat_Layout android_layout_gravity android_layout_width 
 styleable LinearProgressIndicator indeterminateAnimationType indicatorDirectionLinear
 styleable ListPopupWindow android_dropDownHorizontalOffset android_dropDownVerticalOffset
 styleable LoadingImageView circleCrop imageAspectRatio imageAspectRatioAdjust
+<<<<<<< Updated upstream
 styleable MapAttrs ambientEnabled backgroundColor cameraBearing cameraMaxZoomPreference cameraMinZoomPreference cameraTargetLat cameraTargetLng cameraTilt cameraZoom latLngBoundsNorthEastLatitude latLngBoundsNorthEastLongitude latLngBoundsSouthWestLatitude latLngBoundsSouthWestLongitude liteMode mapId mapType uiCompass uiMapToolbar uiRotateGestures uiScrollGestures uiScrollGesturesDuringRotateOrZoom uiTiltGestures uiZoomControls uiZoomGestures useViewLifecycle zOrderOnTop
+=======
+>>>>>>> Stashed changes
 styleable MaterialAlertDialog backgroundInsetBottom backgroundInsetEnd backgroundInsetStart backgroundInsetTop
 styleable MaterialAlertDialogTheme materialAlertDialogBodyTextStyle materialAlertDialogButtonSpacerVisibility materialAlertDialogTheme materialAlertDialogTitleIconStyle materialAlertDialogTitlePanelStyle materialAlertDialogTitleTextStyle
 styleable MaterialAutoCompleteTextView android_inputType android_popupElevation simpleItemLayout simpleItemSelectedColor simpleItemSelectedRippleColor simpleItems

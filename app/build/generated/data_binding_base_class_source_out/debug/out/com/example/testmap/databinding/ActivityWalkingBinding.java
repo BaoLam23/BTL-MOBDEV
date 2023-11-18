@@ -4,10 +4,18 @@ package com.example.testmap.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< Updated upstream
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+=======
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+>>>>>>> Stashed changes
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.testmap.R;
@@ -17,6 +25,7 @@ import java.lang.String;
 
 public final class ActivityWalkingBinding implements ViewBinding {
   @NonNull
+<<<<<<< Updated upstream
   private final ConstraintLayout rootView;
 
   @NonNull
@@ -25,11 +34,30 @@ public final class ActivityWalkingBinding implements ViewBinding {
   private ActivityWalkingBinding(@NonNull ConstraintLayout rootView, @NonNull TextView textView) {
     this.rootView = rootView;
     this.textView = textView;
+=======
+  private final RelativeLayout rootView;
+
+  @NonNull
+  public final ProgressBar progressBar;
+
+  @NonNull
+  public final TextView steps;
+
+  private ActivityWalkingBinding(@NonNull RelativeLayout rootView, @NonNull ProgressBar progressBar,
+      @NonNull TextView steps) {
+    this.rootView = rootView;
+    this.progressBar = progressBar;
+    this.steps = steps;
+>>>>>>> Stashed changes
   }
 
   @Override
   @NonNull
+<<<<<<< Updated upstream
   public ConstraintLayout getRoot() {
+=======
+  public RelativeLayout getRoot() {
+>>>>>>> Stashed changes
     return rootView;
   }
 
@@ -54,6 +82,7 @@ public final class ActivityWalkingBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+<<<<<<< Updated upstream
       id = R.id.textView;
       TextView textView = ViewBindings.findChildViewById(rootView, id);
       if (textView == null) {
@@ -61,6 +90,21 @@ public final class ActivityWalkingBinding implements ViewBinding {
       }
 
       return new ActivityWalkingBinding((ConstraintLayout) rootView, textView);
+=======
+      id = R.id.progressBar;
+      ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
+      if (progressBar == null) {
+        break missingId;
+      }
+
+      id = R.id.steps;
+      TextView steps = ViewBindings.findChildViewById(rootView, id);
+      if (steps == null) {
+        break missingId;
+      }
+
+      return new ActivityWalkingBinding((RelativeLayout) rootView, progressBar, steps);
+>>>>>>> Stashed changes
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

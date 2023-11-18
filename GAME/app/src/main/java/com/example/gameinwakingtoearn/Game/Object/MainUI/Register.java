@@ -25,11 +25,13 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
@@ -136,8 +138,15 @@ public class Register extends AppCompatActivity {
         user.put("totalDistance", 0);
         user.put("money", 100);
         user.put("friendList", new ArrayList<String>());
+        user.put("buildings", new ArrayList<String>());
         user.put("createdAt", new Timestamp(new Date()));
 
+        List<DocumentReference> buildingRefs = new ArrayList<>();
+
+//        buildingRefs.add(db.collection("buildings").document("buildingId1"));
+//        buildingRefs.add(db.collection("buildings").document("buildingId2"));
+
+        user.put("buildings", buildingRefs);
 
         // Add a new document to the "users" collection with the UID as the document ID
 
@@ -156,27 +165,27 @@ public class Register extends AppCompatActivity {
                     }
                 });
 
-        Map<String, Object> mapData = new HashMap<>();
-
-        mapData.put("buildings", new ArrayList<>());
-
-        // Create a document in the 'maps' collection with the UID as the document ID
-        db.collection("maps").document(firebaseUser.getUid())
-                .set(mapData)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Map document for user created successfully
-                        Log.d("Firestore", "Map document for user created successfully");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Handle the error
-                        Log.d("Firestore", "Error writing map document for user", e);
-                    }
-                });
+//        Map<String, Object> mapData = new HashMap<>();
+//
+//        mapData.put("buildings", new ArrayList<>());
+//
+//        // Create a document in the 'maps' collection with the UID as the document ID
+//        db.collection("maps").document(firebaseUser.getUid())
+//                .set(mapData)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        // Map document for user created successfully
+//                        Log.d("Firestore", "Map document for user created successfully");
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        // Handle the error
+//                        Log.d("Firestore", "Error writing map document for user", e);
+//                    }
+//                });
     }
 
 }

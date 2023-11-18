@@ -163,8 +163,13 @@
 
     <TextView
         android:id="@+id/tv_lbladdress"
+<<<<<<< Updated upstream
         android:layout_width="115dp"
         android:layout_height="52dp"
+=======
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+>>>>>>> Stashed changes
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:text="Address:"
@@ -183,6 +188,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_address" />
 
+<<<<<<< Updated upstream
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -193,4 +199,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sensor" />
 
+=======
+>>>>>>> Stashed changes
 </androidx.constraintlayout.widget.ConstraintLayout>

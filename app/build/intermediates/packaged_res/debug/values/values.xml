@@ -21,7 +21,11 @@
     <string name="password">Password</string>
     <string name="project_id" translatable="false">mobdev-db-73367</string>
     <string name="register">Register</string>
+<<<<<<< Updated upstream
     <string name="title_activity_maps">MapsActivity</string>
+=======
+    <string name="username">Username</string>
+>>>>>>> Stashed changes
     <style name="Theme.TestMap" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         
         <item name="colorPrimary">@color/purple_500</item>
