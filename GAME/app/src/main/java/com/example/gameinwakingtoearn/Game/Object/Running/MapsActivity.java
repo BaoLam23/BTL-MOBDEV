@@ -5,11 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.gameinwakingtoearn.R;
+import com.google.android.gms.internal.location.zzau;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -18,6 +21,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.gameinwakingtoearn.databinding.ActivityMapsBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -51,10 +55,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        lockOnCurrentLocation();
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    private void lockOnCurrentLocation() {
+        FusedLocationProviderClient fusedLocationProviderClient = GPS.getFusedLocationProviderClient();
+
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null && mMap != null) {
+                    // If the location is available and the map is ready, move the map's camera to the current location
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                    float DEFAULT_ZOOM = 500;
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
+                }
+            }
+        });
     }
 }

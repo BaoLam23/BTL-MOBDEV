@@ -24,6 +24,9 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
@@ -47,7 +50,7 @@ public class GPS extends AppCompatActivity {
     LocationCallback locationCallBack;
 
     //Google API for location service.
-    FusedLocationProviderClient fusedLocationProviderClient;
+    static FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,5 +241,9 @@ public class GPS extends AppCompatActivity {
         } catch (Exception e) {
             tv_address.setText("Unable to get street address");
         }
+    }
+
+    public static FusedLocationProviderClient getFusedLocationProviderClient() {
+        return fusedLocationProviderClient;
     }
 }
