@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #Fri Nov 10 21:29:27 ICT 2023
 base.0=D\:\\MINH\\HOCHANH\\Nam3\\MobDev\\BaiTap\\BTL-MOBDEV\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=D\:\\MINH\\HOCHANH\\Nam3\\MobDev\\BaiTap\\BTL-MOBDEV\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
@@ -7,14 +8,31 @@ base.4=D\:\\MINH\\HOCHANH\\Nam3\\MobDev\\BaiTap\\BTL-MOBDEV\\BTL-MOBDEV\\app\\bu
 base.5=D\:\\MINH\\HOCHANH\\Nam3\\MobDev\\BaiTap\\BTL-MOBDEV\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\6\\classes.dex
 base.6=D\:\\MINH\\HOCHANH\\Nam3\\MobDev\\BaiTap\\BTL-MOBDEV\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
 base.7=D\:\\MINH\\HOCHANH\\Nam3\\MobDev\\BaiTap\\BTL-MOBDEV\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+=======
+#Sun Nov 05 22:00:27 ICT 2023
+base.0=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
+base.3=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.4=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+base.5=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
+base.6=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.7=D\:\\Workspace\\Android Studio\\BTL-MOBDEV\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+>>>>>>> Stashed changes
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=14/classes.dex
 path.3=1/classes.dex
 path.4=2/classes.dex
+<<<<<<< Updated upstream
 path.5=6/classes.dex
 path.6=9/classes.dex
 path.7=classes2.dex
+=======
+path.5=9/classes.dex
+path.6=classes2.dex
+path.7=classes3.dex
+>>>>>>> Stashed changes
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex

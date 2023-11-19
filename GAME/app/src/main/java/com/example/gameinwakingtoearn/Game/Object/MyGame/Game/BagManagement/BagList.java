@@ -18,7 +18,7 @@ import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.MyDesignList.MyLis
 public class BagList extends MyListManagement {
     private final String label="túi đồ";
     private Paint paint;
-    private boolean Was_Structure_Thrown=false;
+    private boolean Was_Structure_Thrown = false;
     private int indexOfItemNeedThrown = -1;
     public BagList(Context context, float x, float y) {
         super(context, x, y, 2, 40, 5, 3,
