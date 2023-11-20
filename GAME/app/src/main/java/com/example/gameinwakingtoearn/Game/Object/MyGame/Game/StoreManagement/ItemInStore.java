@@ -51,6 +51,9 @@ public class ItemInStore extends AItemInList {
     public void check_is_clicked(float x,float y){
 
         super.check_is_clicked(x,y);
+
+        User currentUser = CurrentUser.getInstance().getUser();
+
         if(this.is_clicked){
             //add item to bag
             if(myStore.getMoney() - cost >= 0) {
@@ -59,12 +62,12 @@ public class ItemInStore extends AItemInList {
                 myStore.setMoney(myStore.getMoney() - cost);
 
                 Building newBuilding = new Building();
+                double newMoneyValue = currentUser.getMoney() - 100;
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 WriteBatch batch = db.batch();
 
                 // Add the new building to the buildings collection
-                // Automatically generate a new document ID
                 DocumentReference newBuildingRef = db.collection("buildings").document();
                 batch.set(newBuildingRef, newBuilding);
 
@@ -72,8 +75,9 @@ public class ItemInStore extends AItemInList {
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (firebaseUser != null) {
                     DocumentReference userRef = db.collection("users").document(firebaseUser.getUid());
-                    // Use FieldValue.arrayUnion to add the new building's ID to the user's buildings array
+
                     batch.update(userRef, "buildings", FieldValue.arrayUnion(newBuildingRef.getId()));
+                    batch.update(userRef, "money", newMoneyValue);
                 }
 
                 // Commit the batch write
@@ -82,10 +86,13 @@ public class ItemInStore extends AItemInList {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(context.getApplicationContext(), "The building was added and the user was updated", Toast.LENGTH_SHORT).show();
-                            User currentUser = CurrentUser.getInstance().getUser();
+
+
                             List<String> updatedBuildings = currentUser.getBuildings();
                             updatedBuildings.add(newBuildingRef.getId());
+
                             currentUser.setBuildings(updatedBuildings);
+                            currentUser.setMoney(newMoneyValue);
 
                             CurrentUser.getInstance().setUser(currentUser);
                         } else {
