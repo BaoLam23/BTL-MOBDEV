@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="407dp"
+        android:layout_height="462dp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent"
+        map:layout_constraintVertical_bias="0.0"
+        tools:context=".Game.Object.Running.MapsActivity" />
+
+
+    <TextView
+        android:id="@+id/timer_text_view"
+        android:layout_width="394dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="Timer:"
+        android:textSize="18sp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.882"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map" />
+
+    <TextView
+        android:id="@+id/calories_text_view"
+        android:layout_width="332dp"
+        android:layout_height="39dp"
+        android:layout_below="@id/timer_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:text="Calories:"
+        android:textSize="18sp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.215"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/steps_text_view" />
+
+    <TextView
+        android:id="@+id/distance_text_view"
+        android:layout_width="394dp"
+        android:layout_height="27dp"
+        android:layout_below="@id/calories_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:text="Distance:"
+        android:textSize="18sp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.882"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/timer_text_view" />
+
+    <TextView
+        android:id="@+id/steps_text_view"
+        android:layout_width="321dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/distance_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:text="Steps:"
+        android:textSize="18sp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.188"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/distance_text_view" />
+
+    <ToggleButton
+        android:id="@+id/toggle_track_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textOff="Let's go"
+        android:textOn="Pause"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map"
+        map:layout_constraintVertical_bias="0.927" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="78dp"
+        android:layout_height="45dp"
+        android:text="Back"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toStartOf="@+id/toggle_track_button"
+        map:layout_constraintHorizontal_bias="0.481"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/map"
+        map:layout_constraintVertical_bias="0.927" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
