@@ -35,7 +35,7 @@ public class Authentication extends AppCompatActivity {
 
     TextView textView;
     Button button;
-    Button showMapBut;
+    Button showMapBut, friendBtn;
     Button playgame;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -51,6 +51,8 @@ public class Authentication extends AppCompatActivity {
         textView = findViewById(com.example.gameinwakingtoearn.R.id.user_details);
         user = auth.getCurrentUser();
         showMapBut = findViewById(R.id.showMapBut);
+        friendBtn = findViewById(R.id.friendBtn);
+
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -69,7 +71,7 @@ public class Authentication extends AppCompatActivity {
 //                            textView.setText(document.getId());
                             User user = CurrentUser.getInstance().getUser();
                            //textView.setText(document.getString("username"));
-                            Log.e("money :",document.get("money") + "");
+                            //Log.e("money :",document.get("money") + "");
                             textView.setText(user.getEmail() + " " + user.getUsername());
                         } else {
                             Log.d("GameUI", "No such document");
@@ -109,6 +111,14 @@ public class Authentication extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i =new Intent(Authentication.this, GameUI.class);
                 startActivity(i);
+            }
+        });
+
+        friendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Friends.class);
+                startActivity(intent);
             }
         });
     }

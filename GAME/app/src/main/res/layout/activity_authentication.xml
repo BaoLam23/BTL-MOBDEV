@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="226dp"
-        android:text="This is homepage"
+        android:text="Hello"
         />
 
     <Button
@@ -30,8 +30,14 @@
 
     <Button
         android:id="@+id/showMapBut"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Running" />
+
+    <Button
+        android:id="@+id/friendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friends" />
 
 </LinearLayout>
