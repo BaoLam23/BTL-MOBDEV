@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.android.play:integrity:1.1.0@aar">
+    <CLASSES>
+<<<<<<< Updated upstream
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f5dd468ce6c9c107aa52bf409628e6e4/transformed/integrity-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f5dd468ce6c9c107aa52bf409628e6e4/transformed/integrity-1.1.0/AndroidManifest.xml" />
+=======
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ba36dc073fead3e4cdbe1472776d9f9a/transformed/integrity-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ba36dc073fead3e4cdbe1472776d9f9a/transformed/integrity-1.1.0/AndroidManifest.xml" />
+>>>>>>> Stashed changes
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

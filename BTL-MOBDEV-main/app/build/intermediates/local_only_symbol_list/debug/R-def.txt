@@ -1,0 +1,90 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+drawable housetest
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable no_button
+drawable pixil_frame_0
+drawable tick
+id btn_login
+id btn_register
+<<<<<<< Updated upstream
+id button
+=======
+>>>>>>> Stashed changes
+id divider
+id email
+id loginNow
+id logout
+<<<<<<< Updated upstream
+id map
+=======
+>>>>>>> Stashed changes
+id password
+id progressBar
+id registerNow
+id sw_gps
+id sw_locationsupdates
+id textView
+id tv_accuracy
+id tv_address
+id tv_altitude
+id tv_labelaccuracy
+id tv_labelaltitude
+id tv_labellat
+id tv_labellon
+id tv_labelsensor
+id tv_labelspeed
+id tv_labelupdates
+id tv_lat
+id tv_lbladdress
+id tv_lon
+id tv_sensor
+id tv_speed
+id tv_updates
+id user_details
+<<<<<<< Updated upstream
+layout activity_authentication
+layout activity_login
+layout activity_main
+layout activity_maps
+=======
+id username
+layout activity_authentication
+layout activity_login
+layout activity_main
+>>>>>>> Stashed changes
+layout activity_register
+layout activity_walking
+layout gps_starting
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string click_to_login
+string click_to_register
+string email
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
+string log_out
+string login
+string password
+string project_id
+string register
+<<<<<<< Updated upstream
+string title_activity_maps
+=======
+string username
+>>>>>>> Stashed changes
+style Theme.TestMap
+xml backup_rules
+xml data_extraction_rules
