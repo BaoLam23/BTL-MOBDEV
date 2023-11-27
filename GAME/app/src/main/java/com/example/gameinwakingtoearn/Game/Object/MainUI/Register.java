@@ -118,7 +118,8 @@ public class Register extends AppCompatActivity {
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(Register.this, "Email already used",
+                                    Log.e("Authentication", "Failed: ", task.getException());
+                                    Toast.makeText(Register.this, "Auth fails",
                                             Toast.LENGTH_SHORT).show();
 //                                    updateUI(null);
                                 }

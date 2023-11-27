@@ -72,7 +72,7 @@ public class Authentication extends AppCompatActivity {
                             User user = CurrentUser.getInstance().getUser();
                            //textView.setText(document.getString("username"));
                             //Log.e("money :",document.get("money") + "");
-                            textView.setText(user.getEmail() + " " + user.getUsername());
+                            textView.setText(user.getUsername());
                         } else {
                             Log.d("GameUI", "No such document");
                         }
