@@ -102,7 +102,7 @@ public class Register extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
 
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
+
 //                                    FirebaseUser user = mAuth.getCurrentUser();
 //                                    updateUI(user);
 
@@ -117,9 +117,10 @@ public class Register extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    // If sign in fails, display a message to the user.
+
                                     Log.e("Authentication", "Failed: ", task.getException());
-                                    Toast.makeText(Register.this, "Auth fails",
+
+                                    Toast.makeText(Register.this, "Sign in failed",
                                             Toast.LENGTH_SHORT).show();
 //                                    updateUI(null);
                                 }
