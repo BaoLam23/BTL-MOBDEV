@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.gameinwakingtoearn.Game.Object.MainUI.Authentication;
 import com.example.gameinwakingtoearn.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -81,11 +83,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button backButton = findViewById(R.id.back_button);
+        ImageView backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, GPS.class);
+                Intent intent = new Intent(MapsActivity.this, Authentication.class);
                 startActivity(intent);
             }
         });
@@ -176,9 +178,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int minutes = (seconds % 3600) / 60;
         seconds %= 60;
 
-        timerTextView.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds));
-        distanceTextView.setText(String.format(Locale.getDefault(), "%.2f meters", totalDistance));
-        stepsTextView.setText(String.valueOf(totalSteps));
+        timerTextView.setText(String.format("Time spent: ", "%02d:%02d:%02d", hours, minutes, seconds));
+        distanceTextView.setText(String.format("Distance ", "%.2f meters", totalDistance));
+        stepsTextView.setText("Steps: " + String.valueOf(totalSteps));
         caloriesTextView.setText("Calories burned: " + (totalSteps / 20));
     }
 }

@@ -19,6 +19,7 @@ import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameUI;
 
 import com.example.gameinwakingtoearn.Game.Object.Running.GPS;
 
+import com.example.gameinwakingtoearn.Game.Object.Running.MapsActivity;
 import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
 import com.example.gameinwakingtoearn.Game.Object.User.User;
 
@@ -72,7 +73,7 @@ public class Authentication extends AppCompatActivity {
                             User user = CurrentUser.getInstance().getUser();
                            //textView.setText(document.getString("username"));
                             //Log.e("money :",document.get("money") + "");
-                            textView.setText(user.getUsername());
+                            textView.setText(user.getUsername() + " "+ user.getMoney() );
                         } else {
                             Log.d("GameUI", "No such document");
                         }
@@ -99,7 +100,7 @@ public class Authentication extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), GPS.class);
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
                 finish();
             }
