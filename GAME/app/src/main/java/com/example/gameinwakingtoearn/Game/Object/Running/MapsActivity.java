@@ -1,5 +1,6 @@
 package com.example.gameinwakingtoearn.Game.Object.Running;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -98,9 +99,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+//        ToggleButton trackButton = findViewById(R.id.toggle_track_button);
+//        trackButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            isTrackingEnabled = isChecked;
+//            if (isChecked) {
+//                startLocationUpdates();
+//            } else {
+//                stopLocationUpdates();
+//            }
+//        });
         ToggleButton trackButton = findViewById(R.id.toggle_track_button);
         trackButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            isTrackingEnabled = isChecked;
             if (isChecked) {
                 startLocationUpdates();
             } else {
@@ -134,24 +143,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
         if (!isTrackingEnabled) {
 
-            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-            chronometer.start();
+
             isTrackingEnabled = true;
         }
+        chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+        chronometer.start();
     }
     private void stopLocationUpdates() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback);
             if (isTrackingEnabled) {
-                chronometer.stop();
-                pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+
                 isTrackingEnabled = false;
             }
+        chronometer.stop();
+        pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stopLocationUpdates();
+        if (isTrackingEnabled) {
+            stopLocationUpdates();
+        }
     }
 
     @Override
@@ -186,10 +199,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         polylineOptions.add(latLng);
         polyline = mMap.addPolyline(polylineOptions);
     }
+    @SuppressLint("DefaultLocale")
     private void updateUI() {
 
 //        timerTextView.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-        distanceTextView.setText("Distance: " + String.format("%.2f meters", totalDistance));
+//        distanceTextView.setText("Distance: " + String.format("%.2f meters", totalDistance));
+        distanceTextView.setText("Distance: " + totalDistance);
         stepsTextView.setText("Steps: " + totalSteps);
         caloriesTextView.setText("Calories burned: " + (totalSteps / 20));
 

@@ -45,7 +45,7 @@ public class GameUI extends AppCompatActivity {
 
         backgroundMusicPlayer = MediaPlayer.create(this, R.raw.music);
         backgroundMusicPlayer.setLooping(true);
-        backgroundMusicPlayer.setVolume(10, 10);
+        backgroundMusicPlayer.setVolume(3, 3);
         backgroundMusicPlayer.start();
 
 
