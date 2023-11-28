@@ -23,7 +23,7 @@
         android:id="@+id/calories_text_view"
         android:layout_width="332dp"
         android:layout_height="39dp"
-        android:text="Calories:"
+        android:text="Calories burned: 0"
         android:fontFamily="@font/karantina_regular"
         android:textSize="32dp"
         android:visibility="visible" />
@@ -33,16 +33,23 @@
         android:layout_width="321dp"
         android:layout_height="32dp"
         android:fontFamily="@font/karantina_regular"
-        android:text="Steps:"
+        android:text="Steps: 0"
         android:textSize="32dp" />
 
-    <TextView
-        android:id="@+id/timer_text_view"
-        android:layout_width="394dp"
-        android:layout_height="30dp"
-        android:fontFamily="@font/karantina_regular"
-        android:text="Timer:"
-        android:textSize="32dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/timer_text_view"-->
+<!--        android:layout_width="394dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:fontFamily="@font/karantina_regular"-->
+<!--        android:text="Timer:"-->
+<!--        android:textSize="32dp" />-->
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/distance_text_view"

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private Chronometer chronometer;
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private boolean isTrackingEnabled = false;
@@ -44,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private long startTimeMillis;
     private int totalSteps = 0;
     private float totalDistance = 0.0f;
+    private long pauseOffset;
     private Marker currentUserMarker; // To store the marker for user's current location
 
     private LocationCallback locationCallback = new LocationCallback() {
@@ -72,16 +76,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        timerTextView = findViewById(R.id.timer_text_view);
+//        timerTextView = findViewById(R.id.timer_text_view);
         caloriesTextView = findViewById(R.id.calories_text_view);
         distanceTextView = findViewById(R.id.distance_text_view);
         stepsTextView = findViewById(R.id.steps_text_view);
+        chronometer = findViewById(R.id.chronometer);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
         ImageView backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -126,10 +132,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, getMainLooper());
-    }
+        if (!isTrackingEnabled) {
 
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            isTrackingEnabled = true;
+        }
+    }
     private void stopLocationUpdates() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+            if (isTrackingEnabled) {
+                chronometer.stop();
+                pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+                isTrackingEnabled = false;
+            }
     }
 
     @Override
@@ -171,16 +187,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         polyline = mMap.addPolyline(polylineOptions);
     }
     private void updateUI() {
-        long currentTimeMillis = System.currentTimeMillis();
-        long elapsedTimeMillis = currentTimeMillis - startTimeMillis;
-        int seconds = (int) (elapsedTimeMillis / 1000);
-        int hours = seconds / 3600;
-        int minutes = (seconds % 3600) / 60;
-        seconds %= 60;
 
-        timerTextView.setText(String.format("Time spent: ", "%02d:%02d:%02d", hours, minutes, seconds));
-        distanceTextView.setText(String.format("Distance ", "%.2f meters", totalDistance));
-        stepsTextView.setText("Steps: " + String.valueOf(totalSteps));
+//        timerTextView.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        distanceTextView.setText("Distance: " + String.format("%.2f meters", totalDistance));
+        stepsTextView.setText("Steps: " + totalSteps);
         caloriesTextView.setText("Calories burned: " + (totalSteps / 20));
+
     }
 }
