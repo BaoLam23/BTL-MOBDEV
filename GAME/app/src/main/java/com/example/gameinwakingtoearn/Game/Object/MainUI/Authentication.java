@@ -34,7 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Authentication extends AppCompatActivity {
 
-    TextView textView;
+    TextView textView, money;
     Button button;
     Button showMapBut, friendBtn;
     Button playgame;
@@ -53,6 +53,7 @@ public class Authentication extends AppCompatActivity {
         user = auth.getCurrentUser();
         showMapBut = findViewById(R.id.showMapBut);
         friendBtn = findViewById(R.id.friendBtn);
+        money = findViewById(R.id.user_money);
 
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -73,7 +74,8 @@ public class Authentication extends AppCompatActivity {
                             User user = CurrentUser.getInstance().getUser();
                            //textView.setText(document.getString("username"));
                             //Log.e("money :",document.get("money") + "");
-                            textView.setText(user.getUsername() + " "+ user.getMoney() );
+                            textView.setText(user.getUsername());
+                            money.setText(user.getMoney() + "$");
                         } else {
                             Log.d("GameUI", "No such document");
                         }
