@@ -62,6 +62,7 @@ public class ItemInStore extends AItemInList {
                 myStore.setMoney(myStore.getMoney() - cost);
 
                 Building newBuilding = new Building();
+                newBuilding.setStatus(false);
                 double newMoneyValue = currentUser.getMoney() - 100;
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
