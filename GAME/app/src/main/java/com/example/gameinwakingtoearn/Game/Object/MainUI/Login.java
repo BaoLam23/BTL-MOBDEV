@@ -129,7 +129,7 @@ public class Login extends AppCompatActivity {
                         User user = document.toObject(User.class);
 
                         CurrentUser.getInstance().setUser(user);
-                        Toast.makeText(Login.this, "get user done", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Login.this, "get user done", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.d(TAG, "No such document");
                     }

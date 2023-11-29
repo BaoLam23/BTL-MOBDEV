@@ -139,6 +139,8 @@ public class Register extends AppCompatActivity {
         user.put("username", String.valueOf(editTextUsername.getText()));
         user.put("totalDistance", 0);
         user.put("money", 100);
+        user.put("level", 1);
+        user.put("currentExp", 0);
         user.put("friendList", new ArrayList<String>());
         user.put("buildings", new ArrayList<String>());
         user.put("createdAt", new Timestamp(new Date()));

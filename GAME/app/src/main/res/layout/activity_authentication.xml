@@ -34,14 +34,16 @@
 
         <TextView
             android:id="@+id/user_details"
+            android:fontFamily="@font/karantina_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
+            android:textSize="45sp"
             android:layout_marginTop="10dp"
             android:text="" />
 
         <TextView
             android:id="@+id/user_money"
+            android:fontFamily="@font/karantina_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40sp"
@@ -50,6 +52,24 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/karantina_regular"
+        android:textSize="45sp"
+        android:layout_marginLeft="20dp"
+        android:text="Level: 1"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="0"
+        android:max="100"
+        android:padding="4dp"
+        style="?android:attr/progressBarStyleHorizontal"/>
 
     <LinearLayout
         android:layout_width="match_parent"

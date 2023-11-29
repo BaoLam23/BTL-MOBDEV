@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Authentication extends AppCompatActivity {
 
-    TextView textView, money;
+    TextView textView, money, level;
+    ProgressBar progressBar;
     Button button;
     Button showMapBut, friendBtn;
     Button playgame;
@@ -54,6 +56,8 @@ public class Authentication extends AppCompatActivity {
         showMapBut = findViewById(R.id.showMapBut);
         friendBtn = findViewById(R.id.friendBtn);
         money = findViewById(R.id.user_money);
+        level = findViewById(R.id.level);
+        progressBar = findViewById(R.id.progressBar);
 
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -76,6 +80,8 @@ public class Authentication extends AppCompatActivity {
                             //Log.e("money :",document.get("money") + "");
                             textView.setText(user.getUsername());
                             money.setText(user.getMoney() + "$");
+                            level.setText("Level: " + user.getLevel());
+                            progressBar.setProgress(user.getCurrentExp());
                         } else {
                             Log.d("GameUI", "No such document");
                         }

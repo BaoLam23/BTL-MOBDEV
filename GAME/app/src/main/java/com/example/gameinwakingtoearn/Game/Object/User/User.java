@@ -11,6 +11,24 @@ public class User {
     List<String> buildings = new ArrayList<>();
     private double totalDistance;
     List<String> friendList = new ArrayList<>();
+    private int level;
+    private int currentExp;
+
+    public int getCurrentExp() {
+        return currentExp;
+    }
+
+    public void setCurrentExp(int currentExp) {
+        this.currentExp = currentExp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public String getUid() {
         return uid;

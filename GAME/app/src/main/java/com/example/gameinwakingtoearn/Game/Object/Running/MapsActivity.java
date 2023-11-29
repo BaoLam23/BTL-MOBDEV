@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -14,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.gameinwakingtoearn.Game.Object.MainUI.Authentication;
+import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
+import com.example.gameinwakingtoearn.Game.Object.User.User;
 import com.example.gameinwakingtoearn.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -32,8 +36,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -165,6 +175,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (isTrackingEnabled) {
             stopLocationUpdates();
         }
+        User user = CurrentUser.getInstance().getUser();
+        int levelUp = totalSteps / 100;
+        int level = user.getLevel();
+        int exp = user.getCurrentExp();
+        user.setLevel(level + levelUp);
+        user.setCurrentExp(exp + (totalSteps % 100));
     }
 
     @Override
@@ -172,6 +188,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
         if (isTrackingEnabled) {
             startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (CurrentUser.getInstance().getUser() != null) {
+
+            User currentUser = CurrentUser.getInstance().getUser();
+
+            Map<String, Object> userUpdates = new HashMap<>();
+            userUpdates.put("email", currentUser.getEmail());
+            userUpdates.put("username", currentUser.getUsername());
+            userUpdates.put("money", currentUser.getMoney());
+            userUpdates.put("totalDistance", currentUser.getTotalDistance());
+            userUpdates.put("friendList", currentUser.getFriendList());
+            userUpdates.put("buildings", currentUser.getBuildings());
+            userUpdates.put("level", currentUser.getLevel());
+            userUpdates.put("currentExp", currentUser.getCurrentExp());
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            DocumentReference userDocRef = db.collection("users").document(currentUser.getUid());
+            userDocRef.update(userUpdates)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Firestore", "User data successfully updated on stop!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("Firestore", "Error updating user data on stop", e);
+                        }
+                    });
         }
     }
 
