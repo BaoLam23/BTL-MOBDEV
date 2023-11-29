@@ -179,8 +179,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int levelUp = totalSteps / 100;
         int level = user.getLevel();
         int exp = user.getCurrentExp();
+        double money = totalSteps / 2;
+        double moneyCur = user.getMoney();
         user.setLevel(level + levelUp);
         user.setCurrentExp(exp + (totalSteps % 100));
+        user.setMoney(moneyCur + money);
     }
 
     @Override
