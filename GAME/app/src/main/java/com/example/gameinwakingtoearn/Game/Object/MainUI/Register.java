@@ -102,7 +102,7 @@ public class Register extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
 
                                 if (task.isSuccessful()) {
-
+                                    // Sign in success, update UI with the signed-in user's information
 //                                    FirebaseUser user = mAuth.getCurrentUser();
 //                                    updateUI(user);
 
@@ -117,10 +117,8 @@ public class Register extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-
-                                    Log.e("Authentication", "Failed: ", task.getException());
-
-                                    Toast.makeText(Register.this, "Sign in failed",
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(Register.this, "Email already used",
                                             Toast.LENGTH_SHORT).show();
 //                                    updateUI(null);
                                 }
@@ -138,12 +136,12 @@ public class Register extends AppCompatActivity {
         user.put("email", firebaseUser.getEmail());
         user.put("username", String.valueOf(editTextUsername.getText()));
         user.put("totalDistance", 0);
-        user.put("money", 100);
-        user.put("level", 1);
-        user.put("currentExp", 0);
+        user.put("money", 999999);
         user.put("friendList", new ArrayList<String>());
         user.put("buildings", new ArrayList<String>());
         user.put("createdAt", new Timestamp(new Date()));
+        user.put("level", 1);
+        user.put("currentExp", 0);
 
         List<DocumentReference> buildingRefs = new ArrayList<>();
 

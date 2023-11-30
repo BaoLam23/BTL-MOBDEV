@@ -53,16 +53,16 @@ public class ItemsList {
 
             // thuật toán xây dựng cơ chế set vij trí cho từng item của list : thay vì dùng if,else => dùng quy tắc hash thông qua phép % hoặc / tùy cơ ứng biến
 
-            item.getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
-                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column)+distant_from_CenterBg,
-                    (int) (x+20+item.getWidth()+item.getZoom()+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
-                    (int) (y/2+item.getHeight()+item.getZoom()) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column)+distant_from_CenterBg);
+            item.getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getImage().getWidth())+this.distant_between_items),
+                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column)+distant_from_CenterBg,
+                    (int) (x+20+item.getImage().getWidth()+(qua_of_item % Max_column)*(item.getImage().getWidth())+this.distant_between_items),
+                    (int) (y/2+item.getImage().getHeight()) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column)+distant_from_CenterBg);
 
             //set vị trí cho thành phần bên trong của items
-            item.itemstored.getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
-                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column) +distant_from_CenterBg,
-                    (int) (x+20+item.getWidth()+item.getZoom()+(qua_of_item % Max_column)*(item.getWidth()+item.getZoom()+this.distant_between_items)),
-                    (int) (y/2+item.getHeight()+item.getZoom()) + (item.getImage().getBitmap().getHeight()+item.getZoom()+3) * (qua_of_item/Max_column) +distant_from_CenterBg);
+            item.getItemstored().getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getImage().getWidth())+this.distant_between_items),
+                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column) +distant_from_CenterBg,
+                    (int) (x+20+item.getImage().getWidth()+(qua_of_item % Max_column)*(item.getImage().getWidth()+this.distant_between_items)),
+                    (int) (y/2+item.getImage().getHeight()) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column) +distant_from_CenterBg);
 
 
             this.mylist[this.qua_of_item]=item;

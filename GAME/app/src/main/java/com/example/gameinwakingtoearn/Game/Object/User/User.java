@@ -1,5 +1,7 @@
 package com.example.gameinwakingtoearn.Game.Object.User;
 
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Structure;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class User {
     List<String> buildings = new ArrayList<>();
     private double totalDistance;
     List<String> friendList = new ArrayList<>();
+
     private int level;
     private int currentExp;
 

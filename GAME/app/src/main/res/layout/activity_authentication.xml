@@ -13,42 +13,42 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/user2"
-            android:background="@drawable/circular_background"/>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user2"
+                android:background="@drawable/circular_background"/>
 
-    </FrameLayout>
+        </FrameLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/user_details"
-            android:fontFamily="@font/karantina_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="45sp"
-            android:layout_marginTop="10dp"
-            android:text="" />
+            <TextView
+                android:id="@+id/user_details"
+                android:fontFamily="@font/karantina_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="45sp"
+                android:layout_marginTop="10dp"
+                android:text="" />
 
-        <TextView
-            android:id="@+id/user_money"
-            android:fontFamily="@font/karantina_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:layout_marginTop="0dp"
-            android:text="" />
+            <TextView
+                android:id="@+id/user_money"
+                android:fontFamily="@font/karantina_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"
+                android:layout_marginTop="0dp"
+                android:text="" />
         </LinearLayout>
 
     </LinearLayout>
@@ -77,80 +77,66 @@
         android:gravity="center"
         android:orientation="vertical">
 
-    <Button
-        android:id="@+id/playGameButton"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:focusable="true"
-        android:textAllCaps="false"
-        android:background="@drawable/rounded_rectangle"
-        android:text="PlayGame" />
+        <ImageButton
+            android:id="@+id/playGameButton"
+            android:layout_width="210dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:focusable="true"
+            android:textAllCaps="false"
 
-    <Button
-        android:id="@+id/showMapBut"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:focusable="true"
-        android:textAllCaps="false"
-        android:background="@drawable/rounded_rectangle"
-        android:layout_marginTop="30dp"
-        android:text="Start Running" />
 
-    <Button
-        android:id="@+id/logout"
-        android:text="@string/log_out"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:focusable="true"
-        android:textAllCaps="false"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/rounded_rectangle"/>
 
-    <Button
-        android:id="@+id/friendBtn"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:focusable="true"
-        android:textAllCaps="false"
-        android:background="@drawable/rounded_rectangle"
-        android:visibility="gone"
-        android:text="Friends" />
+            android:src="@drawable/menu_play" />
+
+        <ImageButton
+            android:id="@+id/showMapBut"
+            android:layout_width="210dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:focusable="true"
+            android:textAllCaps="false"
+
+            android:layout_marginTop="30dp"
+            android:src="@drawable/menu_run" />
+
+        <ImageButton
+            android:id="@+id/logout"
+            android:text="@string/log_out"
+            android:layout_width="210dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:focusable="true"
+            android:textAllCaps="false"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/menu_logout" />
+
+
+
     </LinearLayout>
 
 </LinearLayout>

@@ -1,48 +1,39 @@
 package com.example.gameinwakingtoearn.Game.Object.MyGame.Game.StoreManagement;
 
-import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
-
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement.ItemHouseInBag;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement.ItemHouse1InBag;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement.ItemInBag;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement.MyBag;
-import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.Building;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Structure;
 
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.MyDesignList.AItemInList;
-import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
-import com.example.gameinwakingtoearn.Game.Object.User.User;
 import com.example.gameinwakingtoearn.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ItemInStore extends AItemInList {
+public  abstract class ItemInStore extends AItemInList {
 
 
-    private ArrayList<Structure> city;
-    private int area[][];
-    private MyBag bag;
-    private MyStore myStore;
+    protected ArrayList<Structure> city;
+    protected ArrayList<Structure> dirt;
+
+    protected MyBag bag;
+    protected MyStore myStore;
     private final int cost;
-    public ItemInStore(float x, float y, Context context, MyBag b, ArrayList<Structure> city, int area[][],int cost,
+
+    public static  final int height = 180;
+    public static  final int width = 180;
+    public static final  int id =  R.drawable.item_box;
+    public  ItemInStore(float x, float y, Context context, MyBag b, ArrayList<Structure> city, ArrayList<Structure> dirt ,int cost,
                        MyStore myStore) {
-        super(x, y, context, R.drawable.icon_item_in_myteam, 100);
+        super(x, y, context, id, height,width);
         this.bag=b;
         this.city=city;
-        this.area=area;
+        this.dirt = dirt;
         this.cost =cost;
         this.myStore = myStore;
     }
@@ -52,59 +43,20 @@ public class ItemInStore extends AItemInList {
 
         super.check_is_clicked(x,y);
 
-        User currentUser = CurrentUser.getInstance().getUser();
+
 
         if(this.is_clicked){
             //add item to bag
             if(myStore.getMoney() - cost >= 0) {
                 Log.e("add new item in bag", "ok");
-                bag.getBagList().addNewItem(new ItemHouseInBag(0, 0, context, city, area), -400);
+
+                bag.getBagList().addNewItem(getItemInBagType(),MyBag.posStartOfItem);
                 myStore.setMoney(myStore.getMoney() - cost);
+                FireBaseMangament.CreateNewUserBuilding(this.getContext());
 
-                Building newBuilding = new Building();
-                newBuilding.setStatus(false);
-                double newMoneyValue = currentUser.getMoney() - 100;
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                WriteBatch batch = db.batch();
-
-                // Add the new building to the buildings collection
-                DocumentReference newBuildingRef = db.collection("buildings").document();
-                batch.set(newBuildingRef, newBuilding);
-
-                // Update the user's building array
-                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (firebaseUser != null) {
-                    DocumentReference userRef = db.collection("users").document(firebaseUser.getUid());
-
-                    batch.update(userRef, "buildings", FieldValue.arrayUnion(newBuildingRef.getId()));
-                    batch.update(userRef, "money", newMoneyValue);
-                }
-
-                // Commit the batch write
-                batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(context.getApplicationContext(), "The building was added and the user was updated", Toast.LENGTH_SHORT).show();
-
-
-                            List<String> updatedBuildings = currentUser.getBuildings();
-                            updatedBuildings.add(newBuildingRef.getId());
-
-                            currentUser.setBuildings(updatedBuildings);
-                            currentUser.setMoney(newMoneyValue);
-
-                            CurrentUser.getInstance().setUser(currentUser);
-                        } else {
-                            Toast.makeText(context.getApplicationContext(), "Transaction failure", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
 
             } else {
-                Toast.makeText(context, "Money is not enough", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getContext(), "không đủ tiền", Toast.LENGTH_SHORT).show();
             }
 
             this.is_clicked = false;
@@ -115,4 +67,6 @@ public class ItemInStore extends AItemInList {
     public int getCost(){
         return this.cost;
     }
+    public abstract ItemInBag getItemInBagType();
+
 }

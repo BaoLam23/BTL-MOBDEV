@@ -8,9 +8,19 @@ import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameObject;
 
 // xây dựng từng item trong một danh sách
 public class AItemInList extends GameObject {
-    GameObject itemstored = null;
-    public AItemInList(float x, float y, Context context, int id, int zoom) {
-        super(x, y, context, id, 0, zoom);
+    private GameObject itemstored = null;
+
+
+    public AItemInList(float x, float y, Context context, int id,int height,int width) {
+        super(x, y, context, id, 0,height,width);
+
+    }
+    @Override
+    public void setContext(Context context){
+        super.setContext(context);
+        if(this.itemstored != null) {
+            this.itemstored.setContext(context);
+        }
     }
 
     @Override
@@ -22,8 +32,8 @@ public class AItemInList extends GameObject {
         }
     }
 
-    public void addItem(float x,float y,int id,int zoom){
-         itemstored=new GameObject(x,y,this.context,id,0,zoom);
+    public void addItem(float x,float y,int id,int height,int width){
+         itemstored=new GameObject(x,y,this.getContext(),id,0,height,width);
     }
 
     public GameObject getItemstored(){

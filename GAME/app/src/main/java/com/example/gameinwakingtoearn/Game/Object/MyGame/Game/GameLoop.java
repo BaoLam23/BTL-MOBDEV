@@ -35,10 +35,12 @@ public class GameLoop extends Thread {
                 // Render các đối tượng
                 canvas = surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
-                    // cập nhập các trạng thái của game sau đó mới vẽ
-                    game.update();
-                    // yêu cầu lớp game hiện thị các đối tượng thông qua hàm vẽ
-                    game.draw(canvas);
+                    if(canvas!=null) {
+                        // cập nhập các trạng thái của game sau đó mới vẽ
+                        game.update();
+                        // yêu cầu lớp game hiện thị các đối tượng thông qua hàm vẽ
+                        game.draw(canvas);
+                    }
 
                 }
             } catch(IllegalArgumentException e){

@@ -10,28 +10,37 @@ import android.util.Log;
 public class GameObject {
     protected float x=0;
     protected float y=0;
-    protected final int height;
-    protected final int width;
+
     protected final Sprite image;
     protected boolean is_clicked=false;
-    protected final int zoom;
-    protected Context context;
 
-    public GameObject(float x, float y, Context context, int id, int quatities_frame,int zoom){
+
+    private final int id;
+
+    public GameObject(float x, float y, Context context, int id, int quatities_frame, int height,int width){
         this.x=x;
         this.y=y;
-        this.context=context;
-        this.image=new Sprite(context,id,quatities_frame);
-        this.height=image.getBitmap().getHeight();
-        this.width=image.getBitmap().getWidth();
-        image.setPos((int) this.x, (int) this.y, (int) this.x+width, (int) this.y+height);
-        this.zoom=zoom;
 
+
+        this.image=new Sprite(context,id,quatities_frame,height,width);
+
+        image.setPos((int) this.x, (int) this.y, (int) this.x+width, (int) this.y+height);
+
+        this.id = id;
 
     }
 
+    public void setContext(Context context){
+
+        this.image.setContext(context);
+    }
+    public Context getContext(){ return  this.image.getContext() ;}
+
+    public int getId(){ return this.id;}
+
 
     public  void draw(Canvas canvas){
+
         canvas.drawBitmap(this.image.getBitmap(),null,this.image.getPos(),null);
     };
     public void check_is_clicked(float x,float y){
@@ -47,13 +56,13 @@ public class GameObject {
         }
     }
     public void update(){
-        this.image.setPos((int) this.x, (int) this.y, (int) (this.x+width+zoom), (int) (this.y+height+zoom));
+        this.image.setPos((int) this.x, (int) this.y, (int) (this.x+ image.getWidth()), (int) (this.y+ image.getHeight()));
 
     }
     public void update(int x,int y){
-        this.image.setPos((int) (x-this.zoom), (int) (y-zoom), (int) (x+width+zoom), (int) (y+height+zoom));
-        this.x=x-this.zoom;
-        this.y=y-this.zoom;
+        this.image.setPos((int) (x), (int) (y), (int) (x+ getPos().width()), (int) (y+ getPos().height()));
+        this.x=x;
+        this.y=y;
 
     }
     public boolean get_is_clicked(){
@@ -68,10 +77,10 @@ public class GameObject {
         return this.image.getPos();
     }
     public float getPosX(){
-        return this.x;
+        return this.image.getPos().left;
     }
     public float getPosY(){
-        return this.y;
+        return this.image.getPos().top;
     }
     public void setPos(float x,float y){
         if(is_clicked) {
@@ -83,14 +92,11 @@ public class GameObject {
     public Rect getFrame(int i){
         return this.image.getFrame(i);
     }
-    public int getHeight(){return height;}
-    public int getWidth(){return width;}
+
     public Sprite getImage(){
         return this.image;
     }
-    public int getZoom(){
-        return this.zoom;
-    }
+
 
 }
 

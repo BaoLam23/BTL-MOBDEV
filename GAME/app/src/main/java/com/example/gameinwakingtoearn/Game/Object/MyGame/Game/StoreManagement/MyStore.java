@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement.MyBag;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Structure;
@@ -19,21 +20,31 @@ public class MyStore extends GameObject {
     private long money=0;
     private Paint paintText;
 
+    public static  int height = 150;
+    public static  int width = 150;
+    public static final int id = R.drawable.shop_button;
+
+
     private void drawMoney(Canvas canvas){
-        canvas.drawText("Your money : " + String.valueOf(money),itemList.getBackground().left
-                ,itemList.getBackground().top+100,paintText);
+        canvas.drawText( String.valueOf(money),itemList.getMoneyBar().getPos().left + 58*itemList.getMoneyBar().getWidth()/136
+                ,itemList.getMoneyBar().getPos().top + (itemList.getMoneyBar().getPos().bottom - itemList.getMoneyBar().getPos().top)/2 - paintText.getTextSize()/2 + 10
+                ,paintText);
     }
 
-    public MyStore(float x, float y, Context context, MyBag bag, ArrayList<Structure> city, int area[][], long money) {
-        super(x, y, context, R.drawable.store,2,0);
-        itemList=new StoreItemList(context,30,200,bag,city,area,this);
-       this.image.setFrame(0,0,40,39,0);
-       this.image.setFrame(40*4+7*3,0,40*4+7*3+40*4,39*4,1);
+    public MyStore(float x, float y, Context context, MyBag bag, ArrayList<Structure> city, ArrayList<Structure> dirt , long money) {
+        super(x, y, context,id,0,height,width);
+        itemList=new StoreItemList(context,x,y,bag,city,dirt,this);
+
        this.paintText=new Paint();
        paintText.setTextSize(30);
        paintText.setColor(Color.BLACK);
+//        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "karantina_regular.ttf");
+//        paintText.setTypeface(typeface);
        this.money = money;
+
     }
+
+
 
     @Override
     public void draw(Canvas canvas) {
@@ -42,7 +53,7 @@ public class MyStore extends GameObject {
             itemList.draw(canvas);
             drawMoney(canvas);
         } else {
-            canvas.drawBitmap(this.image.getBitmap(),this.image.getFrame(0),this.image.getPos(),null);
+            super.draw(canvas);
         }
     }
 

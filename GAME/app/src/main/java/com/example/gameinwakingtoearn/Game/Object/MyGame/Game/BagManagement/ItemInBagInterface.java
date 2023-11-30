@@ -2,6 +2,9 @@ package com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement;
 
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Structure;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.StoreManagement.MyStore;
+
+import java.util.ArrayList;
 
 
 //mục đích xây dựng interface này để dùng được tính đa hình của java
@@ -11,5 +14,5 @@ public interface ItemInBagInterface {
      public void addSymbolStruture();
 
      //hàm này sinh ra với mục đích để tạo ra các đối tượng structure tương ứng với các loại item để đỡ phải if, else
-     public Structure createStructure(float x, float y, int a[][]);
+     public Structure createStructure(float x, float y, ArrayList<Structure> city, ArrayList<Structure> dirt, MyStore store, MyBag bag );
 }

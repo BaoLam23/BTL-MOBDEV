@@ -7,7 +7,23 @@ public class Building {
     private int y;
     private double cost;
 
+    public static final boolean inMap = true;
+    public static final boolean inBag = false;
+
     private boolean status;
+
+    public Building() {
+    }
+
+    public Building(int x,int y, double cost, String name,String id) {
+        this.x = x;
+        this.y = y;
+        this.cost = cost;
+        this.name = name;
+        this.id = id;
+    }
+
+
 
     public boolean isStatus() {
         return status;
@@ -17,12 +33,10 @@ public class Building {
         this.status = status;
     }
 
-    public Building() {
-    }
-
     public String getId() {
         return id;
     }
+
 
     public String getName() {
         return name;

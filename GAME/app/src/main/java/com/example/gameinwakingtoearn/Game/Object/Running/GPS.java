@@ -111,7 +111,7 @@ public class GPS extends AppCompatActivity {
                     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                     tv_sensor.setText("Using GPS sensor");
                 } else {
-                    locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                     tv_sensor.setText("Using Towers + WIFI");
                 }
             }
@@ -245,5 +245,11 @@ public class GPS extends AppCompatActivity {
 
     public static FusedLocationProviderClient getFusedLocationProviderClient() {
         return fusedLocationProviderClient;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish(); // Kết thúc Activity B và quay lại Activity A
     }
 }

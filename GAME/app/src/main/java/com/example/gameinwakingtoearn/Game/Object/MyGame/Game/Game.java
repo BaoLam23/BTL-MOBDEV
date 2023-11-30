@@ -3,52 +3,60 @@ package com.example.gameinwakingtoearn.Game.Object.MyGame.Game;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement.ItemInBag;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement.MyBag;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Dirt;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Dirt1;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Structure;
 
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.MyDesignList.ItemsList;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.StoreManagement.MyStore;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private GameLoop gameloop;
 
+
     private final Context context;
 
     private ArrayList<Structure> mycity=new ArrayList<Structure>();
+    private ArrayList<Structure> myDirt=new ArrayList<Structure>();
     private MyStore myStore;
     private MyBag mybag;
-    private int area_of_land[][];
-    private Map<String, Object> user =new HashMap<>();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+
+    public static final int AreaTop = 50;
+    public static final int AreaLeft = 60;
+
+    public static final int AreaBottom =  Game.getScreenHeight() -256 - AreaTop;
+    public static final int AreaRight =  Game.getScreenWidth() - AreaLeft;
+//    private ArrayList<ArrayList<Integer>> area_of_land = new ArrayList<>();
+//    private ArrayList<ArrayList<Integer>> area_of_dirt = new ArrayList<>();
+
+   // private Map<String, Object> user =new HashMap<>();
+    private Paint paint = new Paint();
+
+    private GameObject gameObjectIsClicked = null;
 
 
     //toàn bộ hàm khời tạo game để thiết lập j j đó :vv
     public Game(Context context,long moneyOfUser) {
         super(context);
+        Log.e("construct game", "ok");
         this.context=context;
+
         // khởi tạo hàm surfaceholder và thêm hàm callback
         SurfaceHolder surfaceholder=getHolder();
         surfaceholder.addCallback(this);
@@ -56,15 +64,72 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         //khởi tạo class gameloop
         gameloop=new GameLoop(this,surfaceholder);
 
-        // đây chỉ là bộ nhớ test sau này cần lưu trong bộ nhớ máy
-        this.area_of_land=new int[5000][5000];
-
-        this.mybag=new MyBag(50,this.getScreenHeight()-500,context,mycity,area_of_land);
-        this.myStore=new MyStore(this.getScreenWidth()-300,this.getScreenHeight()-500,context,this.mybag,mycity,area_of_land,moneyOfUser);
 
 
+        Log.e("check length of rect : ",AreaRight-AreaLeft + "");
+        Log.e("check height of rect : ",AreaBottom-AreaTop + "");
+        Log.e("check length of phone : ", Game.getScreenWidth()+"");
+        Log.e("check height of phone : ", Game.getScreenHeight()+"");
+
+        this.mybag=new MyBag(10,Game.getScreenHeight()-150- MyBag.height,context,mycity,myDirt,myStore);
+
+
+        this.myStore=new MyStore(this.getScreenWidth()-MyStore.width - 10,Game.getScreenHeight()-150- MyStore.height,context,this.mybag,mycity,myDirt,moneyOfUser);
+
+
+
+        myStore.setMoney(FireBaseMangament.getUserMoney());
+        Log.e("structure size :", FireBaseMangament.getStructuresList().size() + "");
+
+        Log.e("check bug first", "ok");
+        for(Structure s : FireBaseMangament.getStructuresList()){
+            s.setMycity(this.mycity);
+            s.setContext(this.context);
+            s.setMyDirt(myDirt);
+            s.setBag(this.mybag);
+            s.setMyStore(this.myStore);
+
+            if(s instanceof Dirt) {
+                myDirt.add(s);
+                Log.e("add dirt","active");
+            } else{
+                mycity.add(s);
+            }
+
+        }
+
+
+
+        Log.e("check myDirt size ",myDirt.size()+ "");
+        Log.e("check myCity size ",mycity.size()+ "");
+
+
+        for(ItemInBag s : FireBaseMangament.getBagList()){
+            Log.e("check city source",this.mycity + "");
+            Log.e("check context source",this.context + "");
+
+
+            s.setContext(this.context);
+            Log.e("check bug after", "ok");
+            s.setCity(this.mycity);
+            s.setDirt(myDirt);
+
+
+
+            mybag.getBagList().addNewItem(s,MyBag.posStartOfItem);
+        }
+
+
+
+
+
+
+         paint.setColor(Color.rgb(185,122,87));
         setFocusable(true);
     }
+
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event){
         // hàm dùng để xử lý cách sự kiện ấn nút các thứ
@@ -72,25 +137,64 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
             case MotionEvent.ACTION_DOWN:
 
-                if(!mybag.get_is_clicked()) {
-                    myStore.check_is_clicked(event.getX(), event.getY());
+                if(gameObjectIsClicked == null) {
+
+                        myStore.check_is_clicked(event.getX(), event.getY());
+                        if(myStore.is_clicked){
+                            gameObjectIsClicked = myStore;
+                            return true;
+                        }
+
+
+                        mybag.check_is_clicked(event.getX(), event.getY());
+                    if(mybag.is_clicked){
+                        gameObjectIsClicked = mybag;
+                        return true;
+                    } else{
+                        if(mybag.getStructureSymbol() != null) {
+                            gameObjectIsClicked = mybag.getStructureSymbol();
+                            return true;
+                        }
+
+                    }
+
+
+                    for (Structure s : mycity) {
+
+
+                            s.check_is_clicked(event.getX(), event.getY());
+                            if(s.is_clicked){
+                                gameObjectIsClicked = s;
+                                return true;
+                            }
+
+                    }
+
+                    for (Structure s : myDirt) {
+
+
+                        s.check_is_clicked(event.getX(), event.getY());
+                        if(s.is_clicked){
+                            gameObjectIsClicked = s;
+                            return true;
+                        }
+
+                    }
+                } else{
+                    gameObjectIsClicked.check_is_clicked(event.getX(), event.getY());
+                    if(!gameObjectIsClicked.is_clicked){
+                        gameObjectIsClicked = null;
+                    }
                 }
-
-                if(!myStore.get_is_clicked()) {
-                    mybag.check_is_clicked(event.getX(), event.getY());
-                }
-
-               for(Structure s:mycity){
-
-                   if(!myStore.get_is_clicked() && !mybag.get_is_clicked() ) {
-                       s.check_is_clicked(event.getX(), event.getY());
-                   }
-
-               }
 
                 return true;
             case MotionEvent.ACTION_MOVE:
                 // xử lý vị trí của đối tượng mỗi khi con chuột di chuyển
+
+                for(Structure s:myDirt){
+                    s.setPos(event.getX(),event.getY());
+                }
+
                 for(Structure s:mycity){
                     s.setPos(event.getX(),event.getY());
                 }
@@ -101,6 +205,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
                 return true;
 
         }
+
 
 
         return super.onTouchEvent(event);
@@ -127,6 +232,12 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
+        canvas.drawRect(new Rect(AreaLeft,AreaTop,AreaRight,AreaBottom), paint);
+
+
+        for(Structure s:myDirt){
+            s.draw(canvas);
+        }
 
         for(Structure s:mycity){
             s.draw(canvas);
@@ -138,6 +249,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
             myStore.draw(canvas);
         }
 
+        if(gameObjectIsClicked != null){
+            gameObjectIsClicked.draw(canvas);
+        }
+
 
 
     }
@@ -147,6 +262,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         for(Structure s:mycity){
             s.update();
         }
+
+        for(Structure s:myDirt){
+            s.update();
+        }
+
         this.mybag.update();
         this.myStore.update();
 
@@ -162,19 +282,43 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
-    public void setUserMoney(long m){
-        this.myStore.setMoney(m);
+
+    public long getMoney(){
+        return this.myStore.getMoney();
     }
 
     private void saveData(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        ArrayList<Structure> saveStructList = new ArrayList<>();
+        for(Structure s : mycity){
+            Log.e("check pos strucutre in game before saving ", s.getName() + " " + s.getSaveLeft() +" " + s.getSaveTop() );
+            s.setStatus(true);
+            saveStructList.add(s);
+        }
+
+
+        for(Structure s : myDirt){
+            s.setStatus(true);
+            saveStructList.add(s);
+        }
 
 
 
-        db.collection("users").document(firebaseUser.getUid())
-                .update("money", myStore.getMoney())
-                .addOnSuccessListener(aVoid -> Log.d("Firestore", "User money updated successfully"))
-                .addOnFailureListener(e -> Log.d("Firestore", "Error updating user money", e));
+        for(int i=0;i<=mybag.getBagList().getQuatities_of_Page();i++){
+            for(int j=0;j<mybag.getBagList().getMenuItem()[i].getQua_of_item();j++){
+               ItemInBag itemInBag = (ItemInBag) mybag.getBagList().getMenuItem()[i].getItemList()[j];
+
+               saveStructList.add(itemInBag.createStructure(itemInBag.getPosX(),itemInBag.getPosY(),itemInBag.getCity(),
+                       itemInBag.getDirt(),this.myStore,this.mybag));
+            }
+        }
+
+        Log.d("check saveStructList In Game", saveStructList.size() + " ");
+
+        FireBaseMangament.saveUserMoney(this.myStore.getMoney());
+        FireBaseMangament.saveUserBuildings(saveStructList);
+        FireBaseMangament.updateUserData();
+
     }
 
 

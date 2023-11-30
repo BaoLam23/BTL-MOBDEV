@@ -14,24 +14,30 @@ import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameObject;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.MyDesignList.AItemInList;
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.MyDesignList.MyListManagement;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.StoreManagement.MyStore;
+import com.example.gameinwakingtoearn.R;
+
+import java.util.ArrayList;
 
 public class BagList extends MyListManagement {
     private final String label="túi đồ";
     private Paint paint;
     private boolean Was_Structure_Thrown = false;
     private int indexOfItemNeedThrown = -1;
+
+    public static final int id = R.drawable.backdrop;
     public BagList(Context context, float x, float y) {
-        super(context, x, y, 2, 40, 5, 3,
-                50,100, Game.getScreenWidth()-50,Game.getScreenHeight()-100);
+        super(context, x, y, 2, 40, 4, 3,
+                id,50,200, Game.getScreenWidth()-50,Game.getScreenHeight()-200);
         paint=new Paint();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         paint.setTextSize(50);
     }
     @Override
     public void draw(Canvas canvas){
          super.draw(canvas);
-         canvas.drawText(this.label,(this.background.left+this.background.right)/2-50,
-                 this.background.top+paint.getTextSize(),paint);
+         canvas.drawText(this.label,(this.background.getPos().left+this.background.getPos().right)/2-50,
+                 this.background.getPos().top+paint.getTextSize(),paint);
     }
 
     @Override
@@ -129,11 +135,12 @@ public class BagList extends MyListManagement {
          return item.throwStruture();
     }
 
-    public Structure createStructure(float x, float y, int a[][]){
+    public Structure createStructure(float x, float y, ArrayList<Structure> city, ArrayList<Structure> dirt,
+                                     MyStore store, MyBag bag){
         if(indexOfItemNeedThrown < 0){
             return null;
         }
         ItemInBag item = (ItemInBag) this.getCurrentPage().getItemList()[indexOfItemNeedThrown];
-        return item.createStructure(x,y,a);
+        return item.createStructure(x,y,city,dirt,store,bag);
     }
 }

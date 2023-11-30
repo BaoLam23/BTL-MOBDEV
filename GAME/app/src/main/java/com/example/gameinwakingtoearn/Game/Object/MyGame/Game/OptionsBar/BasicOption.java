@@ -3,6 +3,7 @@ package com.example.gameinwakingtoearn.Game.Object.MyGame.Game.OptionsBar;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameObject;
@@ -11,9 +12,17 @@ public class BasicOption extends GameObject {
     protected boolean is_showed=false;
 
 
-    public BasicOption(float x, float y, Context context, int id, int quatities_frame,int zoom){
-        super(x,y,context,id,quatities_frame,zoom);
+    public BasicOption(float x, float y, Context context, int id, int quatities_frame,int height,int width){
+        super(x,y,context,id,quatities_frame,height,width);
 
+    }
+
+    public int getHeight(){
+        return this.image.getHeight();
+    }
+
+    public int getWidth(){
+        return this.image.getWidth();
     }
     public void setIs_showed(boolean b){
         this.is_showed=b;
@@ -33,6 +42,7 @@ public class BasicOption extends GameObject {
                 && y<=this.image.getPos().bottom && y>=this.image.getPos().top && is_showed){
             this.is_showed=false;
             set_is_clicked(true);
+
 
         }
 

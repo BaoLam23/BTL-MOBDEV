@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.gameinwakingtoearn.Game.Object.MainUI.Authentication;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
 import com.example.gameinwakingtoearn.Game.Object.User.User;
 import com.example.gameinwakingtoearn.R;
@@ -73,10 +74,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (lastKnownLocation != null) {
                     totalDistance += lastKnownLocation.distanceTo(location);
                     drawPolyline(location);
+                    totalSteps++;
                 }
                 lastKnownLocation = location;
 
-                totalSteps++;
+
                 runOnUiThread(() -> updateUI());
             }
         }
@@ -106,6 +108,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 Intent intent = new Intent(MapsActivity.this, Authentication.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -161,10 +164,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     private void stopLocationUpdates() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-            if (isTrackingEnabled) {
+        if (isTrackingEnabled) {
 
-                isTrackingEnabled = false;
-            }
+            isTrackingEnabled = false;
+        }
         chronometer.stop();
         pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
     }
@@ -265,4 +268,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         caloriesTextView.setText("Calories burned: " + (totalSteps / 20));
 
     }
+
+
 }

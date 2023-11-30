@@ -1,6 +1,7 @@
 package com.example.gameinwakingtoearn.Game.Object.MyGame.Game.BagManagement;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Structure;
 
@@ -12,17 +13,21 @@ import java.util.ArrayList;
 
 public abstract class ItemInBag extends AItemInList implements ItemInBagInterface {
     private ArrayList<Structure> city;
-    protected int area[][];
+    private ArrayList<Structure> dirt;
+    public static final  int id =  R.drawable.item_box;
 
     // đây là đối tượng structure cần ném ra để Baglist xử lý mỗi khi ta chọn vào từng item của một danh sách trong dãy danh sách
     protected GameObject structure = null;
 
     private int repeat=0;
 
-    public ItemInBag(float x, float y, Context context,ArrayList<Structure> city,int area[][]) {
-        super(x, y, context, R.drawable.icon_item_in_myteam, 10);
+    public static  final int height = 130;
+    public static  final int width = 130;
+    public ItemInBag(float x, float y, Context context,ArrayList<Structure> city,ArrayList<Structure> dirt) {
+        super(x, y, context, id, height,width);
         this.city=city;
-        this.area=area;
+        this.dirt = dirt;
+
 
     }
 
@@ -40,6 +45,26 @@ public abstract class ItemInBag extends AItemInList implements ItemInBagInterfac
             repeat++;
 
         }
+    }
+
+    public void setCity(ArrayList<Structure>  city){
+
+        this.city =city;
+
+    }
+
+    public void setDirt( ArrayList<Structure> dirt){
+
+        this.dirt = dirt;
+
+    }
+
+    public ArrayList<Structure> getCity(){
+        return  this.city;
+    }
+
+    public ArrayList<Structure> getDirt(){
+        return  this.dirt;
     }
 
 

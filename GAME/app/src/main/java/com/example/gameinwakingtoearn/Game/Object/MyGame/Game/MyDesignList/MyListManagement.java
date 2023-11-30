@@ -8,6 +8,7 @@ import android.graphics.Rect;
 
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameObject;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.Sprite;
 import com.example.gameinwakingtoearn.R;
 
 
@@ -18,52 +19,77 @@ public class MyListManagement {
      private boolean is_quit=false;
      private int quatities_of_page =0;
      private final int Max_page_of_ListManagement ;
-     protected Rect background;
+     protected Sprite background;
      private Paint paint=new Paint();
      private ItemsList[] menuItem;
+
      private GameObject preButton;
+     public static final int heightOfPreButton = 100;
+     public static final int widthOfPreButton = 100;
+
      private GameObject quitButton;
+     public static final int heightOfQuitButton = 100;
+     public static final int widthOfQuitButton = 100;
+
      private GameObject nextButton;
-     private final int Distance_between_next_and_pre_button=20;
+     public static final int heightOfNextButton = 100;
+     public static final int widthOfNextButton = 100;
+
+     public  static  final int sizeOfNumberPage = 70;
+
+     private final int Distance_between_next_and_pre_button=40;
+
+     public static final int idBackButton =   R.drawable.back_button;
+     public static final int idNextButton =   R.drawable.play_button;
+     public static final int idEscapeButton =   R.drawable.no_button;
+
+
      public MyListManagement(Context context,float x,float y,int Max_page_of_ListManagement,int MAX_ITEM_IN_A_PAGE,int Max_column, int distant_between_items,
-                             int left_bg,int top_bg,int right_bg,int bottom_bg){
+                             int idBg, int left_bg,int top_bg,int right_bg,int bottom_bg){
           this.Max_page_of_ListManagement=Max_page_of_ListManagement;
           paint.setColor(Color.YELLOW);
-          this.background=new Rect(left_bg,top_bg, right_bg,bottom_bg);
+
+          this.background = new Sprite(context,idBg,0,bottom_bg - top_bg, right_bg - left_bg);
+          this.background.setPos(left_bg,top_bg,right_bg,bottom_bg);
+
 
 
           this.menuItem=new ItemsList[this.Max_page_of_ListManagement];
           this.menuItem[quatities_of_page]=new ItemsList(MAX_ITEM_IN_A_PAGE,Max_column,distant_between_items);
 
-          preButton =new GameObject(0,0,context, R.drawable.back_button,0,-20);
-          preButton.getImage().setPos(this.background.left + (this.background.right-this.background.left)/2-this.preButton.getImage().getBitmap().getWidth()-Distance_between_next_and_pre_button,
-                  background.bottom-preButton.getHeight()-50,
-                  this.background.left + (this.background.right-this.background.left)/2-this.Distance_between_next_and_pre_button,
-                  background.bottom-50);
+          preButton =new GameObject(0,0,context, idBackButton,0,heightOfPreButton,widthOfPreButton);
+          preButton.getImage().setPos(this.background.getPos().left + (this.background.getPos().right-this.background.getPos().left)/2-this.preButton.getImage().getBitmap().getWidth()-Distance_between_next_and_pre_button,
+                  background.getPos().bottom-preButton.getImage().getHeight()-50,
+                  this.background.getPos().left + (this.background.getPos().right-this.background.getPos().left)/2-this.Distance_between_next_and_pre_button,
+                  background.getPos().bottom-50);
 
 
-          nextButton=new GameObject(0,0,context, R.drawable.next_button,0,0);
-          nextButton.getImage().setPos(this.background.left + (this.background.right-this.background.left)/2+this.Distance_between_next_and_pre_button,
-                  background.bottom-preButton.getHeight()-50,
-                  this.background.left + (this.background.right-this.background.left)/2+nextButton.getImage().getBitmap().getWidth()+this.Distance_between_next_and_pre_button,
-                  background.bottom-50);
+          nextButton=new GameObject(0,0,context, idNextButton,0,heightOfNextButton,widthOfNextButton);
+          nextButton.getImage().setPos(this.background.getPos().left + (this.background.getPos().right-this.background.getPos().left)/2+this.Distance_between_next_and_pre_button,
+                  background.getPos().bottom-preButton.getImage().getHeight()-50,
+                  this.background.getPos().left + (this.background.getPos().right-this.background.getPos().left)/2+nextButton.getImage().getBitmap().getWidth()+this.Distance_between_next_and_pre_button,
+                  background.getPos().bottom-50);
 
-          quitButton=new GameObject(0,0,context,R.drawable.nosign,0,0);
-          quitButton.getImage().setPos(background.right-quitButton.getWidth(),
-                  background.top, background.right,background.top+ quitButton.getHeight());
+          quitButton=new GameObject(0,0,context,idEscapeButton,0,heightOfQuitButton,widthOfQuitButton);
+          quitButton.getImage().setPos(background.getPos().right-quitButton.getImage().getWidth(),
+                  background.getPos().top, background.getPos().right,background.getPos().top+ quitButton.getImage().getHeight());
 
+     }
+
+     public Sprite getBackground(){
+          return this.background;
      }
      public void drawText(Canvas canvas,int number){
           Paint textpaint=new Paint();
           textpaint.setColor(Color.GRAY);
-          textpaint.setTextSize(50);
+          textpaint.setTextSize(sizeOfNumberPage);
           canvas.drawText(String.valueOf(number),
-                  this.preButton.getImage().getPos().right+5,
+                  this.preButton.getImage().getPos().right+Distance_between_next_and_pre_button/2,
                   this.preButton.getImage().getPos().top+50,textpaint);
      }
 
      public void draw(Canvas canvas){
-          canvas.drawRect(background,paint);
+          this.background.draw(canvas);
           menuItem[current_page].draw(canvas);
           nextButton.draw(canvas);
           preButton.draw(canvas);
@@ -101,8 +127,8 @@ public class MyListManagement {
                        menuItem[0].distant_between_items);
           }
 
-          menuItem[quatities_of_page].addItem(item,this.background.left+10,
-                  this.background.bottom-this.background.top,distant_from_CenterBg);
+          menuItem[quatities_of_page].addItem(item,this.background.getPos().left+10,
+                  this.background.getPos().bottom-this.background.getPos().top,distant_from_CenterBg);
           menuItem[quatities_of_page].setNumber_of_page(quatities_of_page +1);
      }
      public boolean getIs_quit(){
@@ -114,6 +140,10 @@ public class MyListManagement {
 
      public int getQuatities_of_Page(){
           return this.quatities_of_page;
+     }
+
+     public ItemsList[] getMenuItem(){
+          return this.menuItem;
      }
      public ItemsList getCurrentPage(){
           return this.menuItem[current_page];
