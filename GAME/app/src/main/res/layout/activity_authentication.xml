@@ -112,7 +112,24 @@
             android:paddingEnd="15dp"
             android:focusable="true"
             android:textAllCaps="false"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/menu_run" />
 
+        <ImageButton
+            android:id="@+id/friendBtn"
+            android:layout_width="210dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:focusable="true"
+            android:textAllCaps="false"
             android:layout_marginTop="30dp"
             android:src="@drawable/menu_run" />
 

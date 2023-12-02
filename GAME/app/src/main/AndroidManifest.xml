@@ -40,9 +40,15 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".Game.Object.MyGame.Game.GameUI"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".Game.Object.MainUI.Authentication"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MainUI.Friends"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MainUI.FindFriend"
             android:exported="false" />
         <activity
             android:name=".Game.Object.MainUI.Register"

@@ -40,6 +40,7 @@ public class Authentication extends AppCompatActivity {
     ImageButton button;
     ImageButton showMapBut;
     ImageButton playgame;
+    ImageButton friendBtn;
     FirebaseAuth auth;
     FirebaseUser user;
 
@@ -56,7 +57,7 @@ public class Authentication extends AppCompatActivity {
         textView = findViewById(com.example.gameinwakingtoearn.R.id.user_details);
         user = auth.getCurrentUser();
         showMapBut = findViewById(R.id.showMapBut);
-
+        friendBtn = findViewById(R.id.friendBtn);
         money = findViewById(R.id.user_money);
         level = findViewById(R.id.level);
         progressBar = findViewById(R.id.progressBar);
@@ -142,7 +143,14 @@ public class Authentication extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
 
+        friendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Authentication.this, Friends.class);
+                startActivity(i);
+            }
+        });
+    }
 
 }
