@@ -1,15 +1,24 @@
 package com.example.gameinwakingtoearn.Game.Object.Models;
 
 public class Item {
-    private int avatar;
+    private int avatar, addFriend;
     private String username, level;
 
     public Item() {
 
     }
 
-    public Item(int avatar, String username, String level) {
+    public int getAddFriend() {
+        return addFriend;
+    }
+
+    public void setAddFriend(int addFriend) {
+        this.addFriend = addFriend;
+    }
+
+    public Item(int avatar, int addFriend, String username, String level) {
         this.avatar = avatar;
+        this.addFriend = addFriend;
         this.username = username;
         this.level = level;
     }

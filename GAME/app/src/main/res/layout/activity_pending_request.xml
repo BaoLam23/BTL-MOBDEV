@@ -5,25 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Game.Object.MainUI.Friends">
+    tools:context=".Game.Object.MainUI.PendingRequest">
 
     <Button
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back" />
-
-    <Button
-        android:id="@+id/findFriendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Find new friends"
-        />
-    <Button
-        android:id="@+id/goToFriendReq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Friend Requests"
-        />
-
+        android:text="Back"/>
 </LinearLayout>

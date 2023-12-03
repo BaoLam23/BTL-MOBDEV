@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameInWakingToEarn"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Game.Object.MainUI.PendingRequest"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -32,15 +34,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCCFl-L5smwF0TfNGvkhW9SR5osRyQmVM8" />
 
-        <activity android:name=".Game.Object.Running.GPS"
-            android:exported="true"/>
+        <activity
+            android:name=".Game.Object.Running.GPS"
+            android:exported="true" />
         <activity
             android:name=".Game.Object.Running.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".Game.Object.MyGame.Game.GameUI"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Game.Object.MainUI.Authentication"
             android:exported="false" />

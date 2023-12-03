@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.gameinwakingtoearn.Game.Object.Adapters.FriendItemAdapter;
 import com.example.gameinwakingtoearn.Game.Object.Models.Item;
+import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
 import com.example.gameinwakingtoearn.Game.Object.User.User;
 import com.example.gameinwakingtoearn.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,7 +39,8 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
     List<Item> itemList;
     FriendItemAdapter friendItemAdapter;
     SearchView searchView;
-
+    String toUserId;
+    User user = CurrentUser.getInstance().getUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +104,8 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             User user = document.toObject(User.class);
-                            Item item = new Item(R.drawable.house_1, user.getUsername(), String.valueOf(user.getLevel()));
+                            toUserId = user.getUid();
+                            Item item = new Item(R.drawable.house_1, R.drawable.add_friend, user.getUsername(), String.valueOf(user.getLevel()));
                             itemList.add(item);
                         }
 
@@ -125,18 +128,22 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
     }
 
 
-    public void sendFriendRequest(String fromUserId, String toUserId) {
+    private void sendFriendRequest(String fromUserId, String toUserId) {
         FriendRequest request = new FriendRequest(fromUserId, toUserId, "sent");
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("friendRequests")
                 .add(request)
                 .addOnSuccessListener(documentReference -> {
                     Log.d("FriendRequest", "Friend request sent successfully.");
+
                 })
                 .addOnFailureListener(e -> {
                     Log.w("FriendRequest", "Error sending friend request", e);
+
                 });
     }
+
     public void listenForFriendRequests(String currentUserId) {
         db.collection("friendRequests")
                 .whereEqualTo("toUserId", currentUserId)
@@ -158,5 +165,6 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
     @Override
     public void onClick(View view, int pos) {
         Toast.makeText(this, "you choose: " + itemList.get(pos).getUsername(), Toast.LENGTH_SHORT).show();
+        sendFriendRequest(user.getUid(), toUserId);
     }
 }

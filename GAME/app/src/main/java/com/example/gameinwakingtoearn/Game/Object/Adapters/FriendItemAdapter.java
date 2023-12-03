@@ -48,6 +48,8 @@ public class FriendItemAdapter extends RecyclerView.Adapter<FriendItemAdapter.Fr
         holder.avatar.setImageResource(item.getAvatar());
         holder.username.setText(item.getUsername());
         holder.level.setText(item.getLevel());
+        holder.addFriend.setImageResource(item.getAddFriend());
+
     }
 
     @Override
@@ -60,6 +62,7 @@ public class FriendItemAdapter extends RecyclerView.Adapter<FriendItemAdapter.Fr
             implements View.OnClickListener{
 
         ImageView avatar;
+        ImageView addFriend;
         TextView username;
         TextView level;
         public FriendItemViewHolder(@NonNull View itemView) {
@@ -68,6 +71,7 @@ public class FriendItemAdapter extends RecyclerView.Adapter<FriendItemAdapter.Fr
             avatar = itemView.findViewById(R.id.avatar);
             username = itemView.findViewById(R.id.username);
             level = itemView.findViewById(R.id.level);
+            addFriend = itemView.findViewById(R.id.imageView2);
 
             itemView.setOnClickListener(this);
         }
