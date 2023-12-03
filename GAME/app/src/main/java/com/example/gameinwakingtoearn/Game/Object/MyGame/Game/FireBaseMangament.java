@@ -37,6 +37,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.WriteBatch;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,33 @@ public class FireBaseMangament {
 
     private static  ArrayList<Structure> structuresList = new ArrayList<>();
     private  static   ArrayList<ItemInBag> bagList = new ArrayList<>();
+
+    private static  String phoneToken;
+
+    public static void setPhoneToken(){
+        //lấy mã định danh của thiết bị
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Lấy Instance ID token thành công
+                        phoneToken = task.getResult();
+                        Log.d("check Token user phone", "Instance ID Token: " + phoneToken);
+                    } else {
+                        Log.w("check Token user phone", "getInstanceId failed", task.getException());
+                    }
+                });
+
+        db.collection("users").document(firebaseUser.getUid())
+                .update("token", phoneToken)
+                .addOnSuccessListener(aVoid -> Log.d("Firestore", "User token updated successfully"))
+                .addOnFailureListener(e -> Log.d("Firestore", "Error updating user token", e));
+    }
+
+
+
+    public static String getPhoneToken(){
+        return  phoneToken;
+    }
 
 
     public static  void setCurrentUser(FirebaseUser user){
@@ -115,6 +143,16 @@ public class FireBaseMangament {
                 .update("money", money)
                 .addOnSuccessListener(aVoid -> Log.d("Firestore", "User money updated successfully"))
                 .addOnFailureListener(e -> Log.d("Firestore", "Error updating user money", e));
+    }
+
+    public static  void changeNameUser(String name){
+        User user = CurrentUser.getInstance().getUser();
+        user.setUsername(name);
+        db.collection("users").document(firebaseUser.getUid())
+                .update("username", name)
+                .addOnSuccessListener(aVoid -> Log.d("Firestore", "User name updated successfully"))
+                .addOnFailureListener(e -> Log.d("Firestore", "Error updating user name", e));
+
     }
 
     public static void createStructureRelyOnName(DocumentSnapshot document, String structureName, Structure structure,
@@ -334,6 +372,7 @@ public class FireBaseMangament {
             userUpdates.put("totalDistance", currentUser.getTotalDistance());
             userUpdates.put("friendList", currentUser.getFriendList());
             userUpdates.put("buildings", currentUser.getBuildings());
+            userUpdates.put("token", phoneToken);
             // Add other fields that you want to update
 
             // Get the database reference

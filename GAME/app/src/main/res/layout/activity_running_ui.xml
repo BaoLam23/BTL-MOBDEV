@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/app_bg">
+
+
+    <ListView
+        android:id="@+id/musicList"
+        android:layout_width="match_parent"
+        style="@style/CustomListViewStyle"
+        android:layout_height="559dp"
+         >
+
+    </ListView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/chooseMusicFromFile"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Choose Music"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.169"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/deleteMusicButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="choose music"
+            android:textOff="delete music"
+            map:layout_constraintBaseline_toBaselineOf="@+id/chooseMusicFromFile"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.82"
+            map:layout_constraintStart_toStartOf="@+id/chooseMusicFromFile" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:layout_marginTop="20dp">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="#00FFFFFF"
+            android:src="@drawable/back_button"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.125"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/go_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="50dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/go"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.806"
+            map:layout_constraintStart_toStartOf="@+id/back_button"
+            map:layout_constraintTop_toTopOf="@+id/back_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -2,24 +2,25 @@ package com.example.gameinwakingtoearn.Game.Object.Running;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.gameinwakingtoearn.Game.Object.MainUI.Authentication;
-import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
 import com.example.gameinwakingtoearn.Game.Object.User.User;
 import com.example.gameinwakingtoearn.R;
@@ -43,10 +44,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class RunningResumeUI extends FragmentActivity implements OnMapReadyCallback {
 
     private Chronometer chronometer;
     private GoogleMap mMap;
@@ -56,11 +56,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private PolylineOptions polylineOptions;
     private Polyline polyline;
     private TextView timerTextView, caloriesTextView, distanceTextView, stepsTextView;
+
+
+    private ToggleButton controlButton;
+    private ImageButton stopButtom;
+
     private long startTimeMillis;
     private int totalSteps = 0;
     private float totalDistance = 0.0f;
     private long pauseOffset;
+
+    private Intent serviceIntent ;
     private Marker currentUserMarker; // To store the marker for user's current location
+
+    public static final int MY_REQUEST_READ_PERMISSION_CODE = 1;
 
     private LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -89,11 +98,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-//        timerTextView = findViewById(R.id.timer_text_view);
+        //yêu cầu cấp quyền truy cập đọc
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Yêu cầu quyền truy cập bộ nhớ khi chưa được cấp
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_REQUEST_READ_PERMISSION_CODE);
+        }
+
+
         caloriesTextView = findViewById(R.id.calories_text_view);
         distanceTextView = findViewById(R.id.distance_text_view);
         stepsTextView = findViewById(R.id.steps_text_view);
         chronometer = findViewById(R.id.chronometer);
+
+        controlButton = (ToggleButton)  findViewById(R.id.controlMoveButton);
+        stopButtom = (ImageButton)findViewById(R.id.stopButton);
+
+
+        controlButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    startLocationUpdates();
+                } else{
+                    stopLocationUpdates();
+                }
+            }
+        });
+
+        stopButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RunningResumeUI.this, Authentication.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -102,33 +146,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-        ImageView backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, Authentication.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        Intent intent = getIntent();
+        if(intent != null){
+            Log.e("pull music list into Music Service","active");
+            MusicService.setMusicPathList(intent.getStringArrayListExtra("music list"));
+        }
 
-//        ToggleButton trackButton = findViewById(R.id.toggle_track_button);
-//        trackButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            isTrackingEnabled = isChecked;
-//            if (isChecked) {
-//                startLocationUpdates();
-//            } else {
-//                stopLocationUpdates();
-//            }
-//        });
-        ToggleButton trackButton = findViewById(R.id.toggle_track_button);
-        trackButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                startLocationUpdates();
-            } else {
-                stopLocationUpdates();
-            }
-        });
+
+
+        serviceIntent = new Intent(this, MusicService.class);
+
+        startService(serviceIntent);
+
+
+
+
     }
 
     @Override
@@ -195,11 +227,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (isTrackingEnabled) {
             startLocationUpdates();
         }
+
+
+
+
+
     }
 
+
+
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //stop service
+
+        stopService(serviceIntent);
 
         if (CurrentUser.getInstance().getUser() != null) {
 
@@ -268,6 +311,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         caloriesTextView.setText("Calories burned: " + (totalSteps / 20));
 
     }
+
+
 
 
 }

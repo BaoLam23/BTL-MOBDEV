@@ -22,6 +22,8 @@ public class GameUI extends AppCompatActivity {
     private Game game;
     private MediaPlayer backgroundMusicPlayer;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,7 @@ public class GameUI extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+       Log.e("game destroy","active");
 
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.stop();

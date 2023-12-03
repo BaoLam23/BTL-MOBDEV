@@ -17,9 +17,8 @@ import android.widget.TextView;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameUI;
 
-import com.example.gameinwakingtoearn.Game.Object.Running.GPS;
-
-import com.example.gameinwakingtoearn.Game.Object.Running.MapsActivity;
+import com.example.gameinwakingtoearn.Game.Object.Running.RunningResumeUI;
+import com.example.gameinwakingtoearn.Game.Object.Running.RunningStartUI;
 import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
 import com.example.gameinwakingtoearn.Game.Object.User.User;
 
@@ -33,17 +32,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Authentication extends AppCompatActivity {
 
+    // ở đây cần thêm một activity với thanh progressBar để tải dữ liệu, nếu xong thì mới vào activity chính
 
 
-    TextView textView, money, level;
+
+    TextView textView, level;
     ProgressBar progressBar;
-    ImageButton button;
+
     ImageButton showMapBut;
+
+    private ImageButton settingsButton;
+
     ImageButton playgame;
-    ImageButton friendBtn;
     FirebaseAuth auth;
     FirebaseUser user;
-
+    ImageButton friendBtn;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -52,15 +55,18 @@ public class Authentication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
+
         auth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.logout);
+
         textView = findViewById(com.example.gameinwakingtoearn.R.id.user_details);
         user = auth.getCurrentUser();
-        showMapBut = findViewById(R.id.showMapBut);
-        friendBtn = findViewById(R.id.friendBtn);
-        money = findViewById(R.id.user_money);
-        level = findViewById(R.id.level);
-        progressBar = findViewById(R.id.progressBar);
+        showMapBut = (ImageButton) findViewById(com.example.gameinwakingtoearn.R.id.showMapBut);
+
+        settingsButton = (ImageButton) findViewById(com.example.gameinwakingtoearn.R.id.settingButtonAuthentication);
+        level = (TextView) findViewById(com.example.gameinwakingtoearn.R.id.level);
+        progressBar = (ProgressBar) findViewById(R.id.xpProgressBar);
+        friendBtn = (ImageButton)findViewById(R.id.findFriendButton);
+
 
 
 
@@ -75,8 +81,6 @@ public class Authentication extends AppCompatActivity {
         } else {
 
 
-
-
             String userId = user.getUid();
             Log.e("userid : ",userId);
             db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -87,14 +91,27 @@ public class Authentication extends AppCompatActivity {
                         if (document != null && document.exists()) {
                             // Set the user info to your text views
 //                            textView.setText(document.getId());
+
                             User user = CurrentUser.getInstance().getUser();
+                            Log.e("check user : ", user + " ");
                            //textView.setText(document.getString("username"));
 
-                            textView.setText(user.getEmail() + " " + user.getUsername());
-                            money.setText(user.getMoney() + "$");
-                            level.setText("Level: " + user.getLevel());
+                            textView.setText(user.getUsername());
+
+
+
+                            level.setText(String.valueOf(user.getLevel()));
+
+                            Log.e("insert data","successful");
+
+                            Log.e("check user exp before insert",user.getCurrentExp()+"");
                             progressBar.setProgress(user.getCurrentExp());
+
+
                             FireBaseMangament.saveUserMoney((long)user.getMoney());
+
+
+
 
                         } else {
                             Log.d("GameUI", "No such document");
@@ -108,26 +125,38 @@ public class Authentication extends AppCompatActivity {
             FireBaseMangament.setCurrentUser(user);
 
             FireBaseMangament.getUserDataFromFireBase();
+
+
         }
 
-        // if click logout btn
-        button.setOnClickListener(new View.OnClickListener() {
+        friendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                CurrentUser.getInstance().setUser(null);
+            public void onClick(View v) {
+                Intent i = new Intent(Authentication.this, Friends.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
-                Intent intent = new Intent(getApplicationContext(), Login.class);
+
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Authentication.this, Settings.class);
                 startActivity(intent);
                 finish();
             }
         });
+
+
         showMapBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RunningStartUI.class);
                 startActivity(intent);
+                finish();
                 
             }
         });
@@ -144,13 +173,8 @@ public class Authentication extends AppCompatActivity {
             }
         });
 
-        friendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Authentication.this, Friends.class);
-                startActivity(i);
-            }
-        });
+
     }
+
 
 }

@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,6 +28,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -142,6 +145,8 @@ public class Register extends AppCompatActivity {
         user.put("createdAt", new Timestamp(new Date()));
         user.put("level", 1);
         user.put("currentExp", 0);
+        //thêm mã định danh thiết bị đang sử dụng vào firebase
+        user.put("token", FireBaseMangament.getPhoneToken());
 
         List<DocumentReference> buildingRefs = new ArrayList<>();
 

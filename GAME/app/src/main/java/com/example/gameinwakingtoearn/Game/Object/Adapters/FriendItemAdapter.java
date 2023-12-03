@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gameinwakingtoearn.Game.Object.MainUI.ItemClickedListener;
@@ -47,6 +48,7 @@ public class FriendItemAdapter extends RecyclerView.Adapter<FriendItemAdapter.Fr
 
         holder.avatar.setImageResource(item.getAvatar());
         holder.username.setText(item.getUsername());
+
         holder.level.setText(item.getLevel());
         holder.addFriend.setImageResource(item.getAddFriend());
 
@@ -64,14 +66,20 @@ public class FriendItemAdapter extends RecyclerView.Adapter<FriendItemAdapter.Fr
         ImageView avatar;
         ImageView addFriend;
         TextView username;
+        ImageView iconXp;
         TextView level;
         public FriendItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
             avatar = itemView.findViewById(R.id.avatar);
             username = itemView.findViewById(R.id.username);
+
             level = itemView.findViewById(R.id.level);
             addFriend = itemView.findViewById(R.id.imageView2);
+
+            iconXp = itemView.findViewById(R.id.xpIconOtherUsers);
+            level =  itemView.findViewById(R.id.levelOtherUsers);
+
 
             itemView.setOnClickListener(this);
         }
