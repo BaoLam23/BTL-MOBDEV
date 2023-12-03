@@ -3,41 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="120dp"
+    android:background="@drawable/settings_bg">
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+
+        android:layout_width="69dp"
+        android:layout_height="63dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="206dp"
         android:src="@drawable/user2"
-        app:layout_constraintEnd_toStartOf="@+id/level"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/username"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.578" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
-        android:layout_marginTop="44dp"
+        android:fontFamily="@font/karantina_regular"
         android:text="Username"
         android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/xpFragment"
+        app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.505" />
 
-    <TextView
-        android:id="@+id/level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="39dp"
-        android:text="Level"
-        android:textSize="30sp"
+    <FrameLayout
+        android:id="@+id/xpFragment"
+        android:layout_width="69dp"
+        android:layout_height="72dp"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/xpIconOtherUsers"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="300dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/xp_badge" />
+
+        <TextView
+            android:id="@+id/levelOtherUsers"
+            android:layout_width="71dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+
+            android:fontFamily="@font/karantina_regular"
+            android:text="1"
+            android:textSize="40sp"
+
+            />
+
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

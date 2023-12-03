@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
 import com.example.gameinwakingtoearn.Game.Object.User.User;
 import com.example.gameinwakingtoearn.R;
@@ -36,16 +37,23 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
+
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        Log.e("login start","active");
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
         if(currentUser != null){
 //            reload();
             fetchUserData(currentUser);
-            Intent intent = new Intent(getApplicationContext(), Authentication.class);
+            FireBaseMangament.setCurrentUser(currentUser);
+            FireBaseMangament.setPhoneToken();
+
+            Intent intent = new Intent(getApplicationContext(),Authentication.class);
             startActivity(intent);
             finish();
         }
@@ -63,6 +71,7 @@ public class Login extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
 
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,9 +85,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
+
                 String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
+
+
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Login.this, "Enter your email", Toast.LENGTH_SHORT).show();
@@ -95,8 +107,13 @@ public class Login extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
 
+                                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                                    fetchUserData(currentUser);
+
                                     Intent intent = new Intent(getApplicationContext(), Authentication.class);
                                     startActivity(intent);
+
+                                    Log.e("bug login in here","ok");
                                     finish();
                                 } else {
 
@@ -123,7 +140,11 @@ public class Login extends AppCompatActivity {
                         User user = document.toObject(User.class);
 
                         CurrentUser.getInstance().setUser(user);
+
+
                         Toast.makeText(Login.this, "get user done", Toast.LENGTH_SHORT).show();
+
+
                     } else {
                         Log.d(TAG, "No such document");
                     }

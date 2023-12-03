@@ -1,58 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/app_bg">
+android:background="@color/black"
+android:gravity="center"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Game.Object.Running.RunningStartUI">
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="470dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        tools:context=".Game.Object.Running.MapsActivity"
-        android:background="@drawable/rounded_corner_bg"
-        />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/distance_text_view"
         android:layout_width="wrap_content"
+        android:layout_height="210dp"
+        android:fontFamily="@font/karantina_regular"
+        android:gravity="center"
+
+        android:text="0.0\nm"
+        android:textColor="@color/white"
+        android:textSize="80dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/calories_text_view"
-            android:layout_width="332dp"
-            android:layout_height="39dp"
-            android:text="Calories burned: 0"
-            android:fontFamily="@font/karantina_regular"
-            android:textSize="32dp"
-            android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/steps_text_view"
-            android:layout_width="321dp"
-            android:layout_height="32dp"
-            android:fontFamily="@font/karantina_regular"
-            android:text="Steps: 0"
-            android:textSize="32dp" />
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/timer_text_view"
-                android:layout_width="65dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/karantina_regular"
                 android:text="Timer:"
+                android:textColor="@color/white"
                 android:textSize="32dp" />
 
             <Chronometer
@@ -61,40 +55,91 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/karantina_regular"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:textSize="32sp" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/distance_text_view"
-            android:layout_width="394dp"
-            android:layout_height="30dp"
+            android:id="@+id/calories_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:fontFamily="@font/karantina_regular"
-            android:text="Distance: 0.0"
-            android:textSize="32dp" />
-    </LinearLayout>
+
+            android:gravity="center"
+            android:text="Calories : 0"
+            android:textColor="@color/white"
+            android:textSize="32dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@id/steps_text_view"
+            app:layout_constraintStart_toEndOf="@id/linearLayout2"
+            app:layout_constraintBaseline_toBaselineOf="@+id/steps_text_view"/>
 
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/steps_text_view"
+            android:layout_width="wrap_content"
+
+            android:layout_height="0dp"
+            android:layout_marginStart="224dp"
+            android:fontFamily="@font/karantina_regular"
+            android:gravity="center"
+            android:text="Steps: 0"
+            android:textColor="@color/white"
+            android:textSize="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="291dp"
+
+        android:background="@drawable/rounded_corner_bg"
+        tools:context=".Game.Object.Running.RunningResumeUI" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="78dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/back_button"
-            />
 
         <ToggleButton
-            android:id="@+id/toggle_track_button"
+            android:id="@+id/controlMoveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOff="Let's go"
-            android:textOn="Pause"
-            android:layout_marginLeft="50dp"
-            />
-    </LinearLayout>
+            android:background="@drawable/toggle_button_style"
+            android:text=""
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/stopButton"
+            app:layout_constraintHorizontal_bias="0.443"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.506" />
+
+        <ImageButton
+            android:id="@+id/stopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:background="#00FFFFFF"
+            android:src="@drawable/stop_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.795"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.506" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

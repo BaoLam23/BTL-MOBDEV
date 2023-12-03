@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameInWakingToEarn"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Game.Object.MainUI.AdjustInformationLayout"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MainUI.LoadingActivity"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -32,23 +40,30 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCCFl-L5smwF0TfNGvkhW9SR5osRyQmVM8" />
 
-        <activity android:name=".Game.Object.Running.GPS"
-            android:exported="true"/>
         <activity
-            android:name=".Game.Object.Running.MapsActivity"
+            android:name=".Game.Object.MainUI.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.Running.RunningStartUI"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.Running.GPS"
+            android:exported="true" />
+        <activity
+            android:name=".Game.Object.Running.RunningResumeUI"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".Game.Object.MyGame.Game.GameUI"
-            android:exported="false"/>
-        <activity
-            android:name=".Game.Object.MainUI.Authentication"
             android:exported="false" />
         <activity
             android:name=".Game.Object.MainUI.Friends"
             android:exported="false" />
         <activity
             android:name=".Game.Object.MainUI.FindFriend"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MainUI.Authentication"
             android:exported="false" />
         <activity
             android:name=".Game.Object.MainUI.Register"
@@ -62,6 +77,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".Game.Object.MainUI.GameMessageManagement"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Game.Object.Running.MusicService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

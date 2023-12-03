@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gameinwakingtoearn.Game.Object.Adapters.FriendItemAdapter;
@@ -32,7 +33,7 @@ import java.util.List;
 public class FindFriend extends AppCompatActivity implements ItemClickedListener{
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Button backBtn;
+    ImageButton backBtn;
     List<User> users = new ArrayList<>();
     RecyclerView recyclerView;
     List<Item> itemList;
@@ -47,6 +48,7 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
         backBtn = findViewById(R.id.backBtn);
         recyclerView = findViewById(R.id.recycleView);
         itemList = new ArrayList<>();
+
         searchView = findViewById(R.id.searchBar);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -88,6 +90,7 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Friends.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -106,6 +109,7 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
                             itemList.add(item);
                         }
 
+
                         if (friendItemAdapter == null) {
 
                             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -118,6 +122,8 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
 
                             friendItemAdapter.notifyDataSetChanged();
                         }
+
+
                     } else {
                         Log.d("find user", "not found");
                     }
