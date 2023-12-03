@@ -2,7 +2,37 @@ package com.example.gameinwakingtoearn.Game.Object.MainUI;
 
 public class FriendRequest {
 
+    private String id;
     private String fromUserId;
+
+    private String fromUserUsername;
+    private String fromUserLevel;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public FriendRequest(String id, String fromUserId, String fromUserUsername, String fromUserLevel, String toUserId, String status) {
+        this.id = id;
+        this.fromUserId = fromUserId;
+        this.fromUserUsername = fromUserUsername;
+        this.fromUserLevel = fromUserLevel;
+        this.toUserId = toUserId;
+        this.status = status;
+    }
+
+    public String getFromUserLevel() {
+        return fromUserLevel;
+    }
+
+    public void setFromUserLevel(String fromUserLevel) {
+        this.fromUserLevel = fromUserLevel;
+    }
+
     private String toUserId;
     private String status; // "sent", "accepted", "declined"
 
@@ -32,9 +62,12 @@ public class FriendRequest {
         this.status = status;
     }
 
-    public FriendRequest(String fromUserId, String toUserId, String status) {
-        this.fromUserId = fromUserId;
-        this.toUserId = toUserId;
-        this.status = status;
+    public String getFromUserUsername() {
+        return fromUserUsername;
     }
+
+    public void setFromUserUsername(String fromUserUsername) {
+        this.fromUserUsername = fromUserUsername;
+    }
+
 }

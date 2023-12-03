@@ -7,21 +7,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gameinwakingtoearn.Game.Object.MainUI.ItemClickedListener;
+import com.example.gameinwakingtoearn.Game.Object.Models.FriendReqItem;
 import com.example.gameinwakingtoearn.Game.Object.Models.Item;
 import com.example.gameinwakingtoearn.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-public class FriendItemAdapter extends
-        RecyclerView.Adapter<FriendItemAdapter.FriendItemViewHolder> {
+public class FriendReqItemAdapter extends
+        RecyclerView.Adapter<FriendReqItemAdapter.FriendReqItemViewHolder> {
 
-    private List<Item> itemList;
+    private List<FriendReqItem> itemList;
 
     public ItemClickedListener itemClickedListener;
 
@@ -29,30 +27,29 @@ public class FriendItemAdapter extends
         this.itemClickedListener = itemClickedListener;
     }
 
-    public FriendItemAdapter(List<Item> itemList) {
+    public FriendReqItemAdapter(List<FriendReqItem> itemList) {
         this.itemList = itemList;
     }
 
     @NonNull
     @Override
-    public FriendItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FriendReqItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_layout, parent, false);
-        return new FriendItemViewHolder(itemView);
+                .inflate(R.layout.friend_req_item_layout, parent, false);
+        return new FriendReqItemViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendItemViewHolder holder, int position) {
-
-        Item item = itemList.get(position);
+    public void onBindViewHolder(@NonNull FriendReqItemViewHolder holder, int position) {
+        FriendReqItem item = itemList.get(position);
 
         holder.avatar.setImageResource(item.getAvatar());
         holder.username.setText(item.getUsername());
         holder.iconXp.setImageResource(item.getXpIcon());
         holder.level.setText(item.getLevel());
-        holder.addFriend.setImageResource(item.getAddFriend());
-
+        holder.acceptIcon.setImageResource(item.getAcceptIcon());
+        holder.declineIcon.setImageResource(item.getDeclineIcon());
     }
 
     @Override
@@ -60,24 +57,23 @@ public class FriendItemAdapter extends
         return itemList.size();
     }
 
-    public class FriendItemViewHolder
+    public class FriendReqItemViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener{
 
         ImageView avatar;
-        ImageView addFriend;
+        ImageView acceptIcon;
+        ImageView declineIcon;
         TextView username;
         ImageView iconXp;
         TextView level;
-        public FriendItemViewHolder(@NonNull View itemView) {
+        public FriendReqItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
             avatar = itemView.findViewById(R.id.avatar);
             username = itemView.findViewById(R.id.username);
-
-//            level = itemView.findViewById(R.id.level);
-            addFriend = itemView.findViewById(R.id.imageView3);
-
+            acceptIcon = itemView.findViewById(R.id.acceptIcon);
+            declineIcon = itemView.findViewById(R.id.declineIcon);
             iconXp = itemView.findViewById(R.id.xpIconOtherUsers);
             level =  itemView.findViewById(R.id.levelOtherUsers);
 

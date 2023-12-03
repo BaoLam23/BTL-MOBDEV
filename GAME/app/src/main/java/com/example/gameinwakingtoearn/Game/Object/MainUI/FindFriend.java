@@ -108,7 +108,7 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             User user = document.toObject(User.class);
                             toUserId = user.getUid();
-                            Item item = new Item(R.drawable.house_1, R.drawable.add_friend, user.getUsername(), String.valueOf(user.getLevel()));
+                            Item item = new Item(R.drawable.house_1, R.drawable.xp_badge, R.drawable.add_friend, user.getUsername(), String.valueOf(user.getLevel()));
                             itemList.add(item);
                         }
 
@@ -134,21 +134,25 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
     }
 
 
-    private void sendFriendRequest(String fromUserId, String toUserId) {
-        FriendRequest request = new FriendRequest(fromUserId, toUserId, "sent");
+    private void sendFriendRequest(String fromUserId, String username, String level, String toUserId) {
+        FriendRequest request = new FriendRequest(null, fromUserId, username, level, toUserId, "sent");
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("friendRequests")
                 .add(request)
                 .addOnSuccessListener(documentReference -> {
-                    Log.d("FriendRequest", "Friend request sent successfully.");
+                    String documentId = documentReference.getId();
+                    db.collection("friendRequests").document(documentId)
+                            .update("id", documentId)
+                            .addOnSuccessListener(aVoid -> Log.d("FriendRequest", "Friend request ID set successfully."))
+                            .addOnFailureListener(e -> Log.e("FriendRequest", "Error setting request ID", e));
 
+                    Log.d("FriendRequest", "Friend request sent successfully.");
                 })
                 .addOnFailureListener(e -> {
                     Log.w("FriendRequest", "Error sending friend request", e);
-
                 });
     }
+
 
     public void listenForFriendRequests(String currentUserId) {
         db.collection("friendRequests")
@@ -171,6 +175,6 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
     @Override
     public void onClick(View view, int pos) {
         Toast.makeText(this, "you choose: " + itemList.get(pos).getUsername(), Toast.LENGTH_SHORT).show();
-        sendFriendRequest(user.getUid(), toUserId);
+        sendFriendRequest(user.getUid(), user.getUsername(), String.valueOf(user.getLevel()), toUserId);
     }
 }

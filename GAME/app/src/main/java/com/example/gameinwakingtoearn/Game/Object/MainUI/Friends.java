@@ -13,7 +13,6 @@ import com.example.gameinwakingtoearn.R;
 public class Friends extends AppCompatActivity {
 
     Button findFriendBtn;
-
     Button goToFriendReqBtn;
     ImageButton backBtn;
 

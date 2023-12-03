@@ -34,7 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="119dp"
 
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/findFriendBtn"
+            app:layout_constraintTop_toTopOf="@+id/findFriendBtn">
 
             <ImageButton
                 android:id="@+id/backBtnOfFriends"
@@ -61,6 +63,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.856" />
+
+            <Button
+                android:id="@+id/goToFriendReq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="26dp"
+                android:text="Friend Request"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

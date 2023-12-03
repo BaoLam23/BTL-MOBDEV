@@ -1,7 +1,7 @@
 package com.example.gameinwakingtoearn.Game.Object.Models;
 
 public class Item {
-    private int avatar, addFriend;
+    private int avatar, xpIcon, addFriend;
     private String username, level;
 
     public Item() {
@@ -16,11 +16,20 @@ public class Item {
         this.addFriend = addFriend;
     }
 
-    public Item(int avatar, int addFriend, String username, String level) {
+    public Item(int avatar,int xpIcon, int addFriend, String username, String level) {
         this.avatar = avatar;
+        this.xpIcon = xpIcon;
         this.addFriend = addFriend;
         this.username = username;
         this.level = level;
+    }
+
+    public int getXpIcon() {
+        return xpIcon;
+    }
+
+    public void setXpIcon(int xpIcon) {
+        this.xpIcon = xpIcon;
     }
 
     public int getAvatar() {
