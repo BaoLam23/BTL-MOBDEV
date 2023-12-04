@@ -153,25 +153,6 @@ public class FindFriend extends AppCompatActivity implements ItemClickedListener
                 });
     }
 
-
-    public void listenForFriendRequests(String currentUserId) {
-        db.collection("friendRequests")
-                .whereEqualTo("toUserId", currentUserId)
-                .whereEqualTo("status", "sent")
-                .addSnapshotListener((snapshots, e) -> {
-                    if (e != null) {
-                        Log.w("FriendRequest", "Listen failed.", e);
-                        return;
-                    }
-
-                    for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                        if (dc.getType() == DocumentChange.Type.ADDED) {
-                            FriendRequest request = dc.getDocument().toObject(FriendRequest.class);
-                        }
-                    }
-                });
-    }
-
     @Override
     public void onClick(View view, int pos) {
         Toast.makeText(this, "you choose: " + itemList.get(pos).getUsername(), Toast.LENGTH_SHORT).show();
