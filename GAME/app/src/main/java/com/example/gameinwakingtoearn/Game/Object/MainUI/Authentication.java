@@ -34,8 +34,6 @@ public class Authentication extends AppCompatActivity {
 
     // ở đây cần thêm một activity với thanh progressBar để tải dữ liệu, nếu xong thì mới vào activity chính
 
-
-
     TextView textView, level;
     ProgressBar progressBar;
 
@@ -67,12 +65,7 @@ public class Authentication extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.xpProgressBar);
         friendBtn = (ImageButton)findViewById(R.id.findFriendButton);
 
-
-
-
         Log.e("push data from fire base", "active");
-
-
 
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -157,7 +150,7 @@ public class Authentication extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), RunningStartUI.class);
                 startActivity(intent);
                 finish();
-                
+
             }
         });
 

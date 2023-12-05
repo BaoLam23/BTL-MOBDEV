@@ -41,7 +41,6 @@ public class Register extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword, editTextUsername;
     Button buttonReg;
-
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
@@ -133,7 +132,6 @@ public class Register extends AppCompatActivity {
     private void saveUserToFirestore(FirebaseUser firebaseUser) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // Create a new user object with desired fields
         Map<String, Object> user = new HashMap<>();
         user.put("uid", firebaseUser.getUid());
         user.put("email", firebaseUser.getEmail());
