@@ -8,14 +8,14 @@ import java.util.List;
 public class User {
     private String uid;
     private String email;
-    private String username;
-    private double money;
+    private String username = "name";
+    private double money = 0;
     List<String> buildings = new ArrayList<>();
     private double totalDistance;
     List<String> friendList = new ArrayList<>();
 
-    private int level;
-    private int currentExp;
+    private int level = 1;
+    private int currentExp = 0;
 
     public int getCurrentExp() {
         return currentExp;
