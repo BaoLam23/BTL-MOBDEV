@@ -20,10 +20,26 @@
         android:theme="@style/Theme.GameInWakingToEarn"
         tools:targetApi="31">
         <activity
+            android:name=".Game.Object.MainUI.StartUI"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MainUI.LoadingFriendCity"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MyGame.Game.PlayerCity"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MyGame.Game.FriendsCityUI"
+            android:exported="false" />
+        <activity
+            android:name=".Game.Object.MainUI.MessageLayout"
+            android:exported="false" />
+        <activity
             android:name=".Game.Object.MainUI.AdjustInformationLayout"
             android:exported="false" />
-        <activity android:name=".Game.Object.MainUI.PendingRequest"
-            android:exported="false"/>
+        <activity
+            android:name=".Game.Object.MainUI.PendingRequest"
+            android:exported="false" />
         <activity
             android:name=".Game.Object.MainUI.LoadingActivity"
             android:exported="false" />
@@ -58,7 +74,6 @@
         <activity
             android:name=".Game.Object.MyGame.Game.GameUI"
             android:exported="false" />
-
         <activity
             android:name=".Game.Object.MainUI.Friends"
             android:exported="false" />

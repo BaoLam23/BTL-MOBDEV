@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/settings_bg">
+
+
+    <TextView
+        android:id="@+id/friendName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:fontFamily="@font/karantina_regular"
+        android:text="Username"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.511" />
+
+    <ImageView
+        android:id="@+id/avatarFriends"
+
+        android:layout_width="83dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="21dp"
+        android:src="@drawable/user2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476" />
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="71dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.738"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/xpIconFriends"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/xp_badge" />
+
+        <TextView
+            android:id="@+id/levelFriends"
+            android:layout_width="61dp"
+            android:layout_height="match_parent"
+
+            android:fontFamily="@font/karantina_regular"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="40sp" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="64dp"
+        android:layout_height="67dp"
+        android:layout_marginEnd="26dp"
+        android:src="@drawable/add_friend"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/avatarFriends"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

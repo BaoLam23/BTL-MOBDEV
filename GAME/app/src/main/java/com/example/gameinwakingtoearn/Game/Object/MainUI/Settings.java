@@ -16,7 +16,7 @@ public class Settings extends AppCompatActivity {
     private ImageButton backButton;
     private ImageButton logOutButton;
 
-    private Button changeInformation;
+    private ImageButton changeInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

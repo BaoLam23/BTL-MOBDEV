@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Login extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword;
-    Button buttonLogin;
+    ImageButton buttonLogin;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
@@ -53,9 +54,11 @@ public class Login extends AppCompatActivity {
             FireBaseMangament.setCurrentUser(currentUser);
             FireBaseMangament.setPhoneToken();
 
-            Intent intent = new Intent(getApplicationContext(),Authentication.class);
+            Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
             startActivity(intent);
+
             finish();
+
         }
     }
 
@@ -113,7 +116,6 @@ public class Login extends AppCompatActivity {
                                     Intent intent = new Intent(getApplicationContext(), Authentication.class);
                                     startActivity(intent);
 
-                                    Log.e("bug login in here","ok");
                                     finish();
                                 } else {
 
@@ -128,6 +130,7 @@ public class Login extends AppCompatActivity {
 
     public void fetchUserData(FirebaseUser firebaseUser) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         DocumentReference docRef = db.collection("users").document(firebaseUser.getUid());
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

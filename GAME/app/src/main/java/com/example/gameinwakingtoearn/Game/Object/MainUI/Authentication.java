@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameUI;
 
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.PlayerCity;
 import com.example.gameinwakingtoearn.Game.Object.Running.RunningResumeUI;
 import com.example.gameinwakingtoearn.Game.Object.Running.RunningStartUI;
 import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
@@ -40,6 +41,7 @@ public class Authentication extends AppCompatActivity {
     ImageButton showMapBut;
 
     private ImageButton settingsButton;
+    private ImageButton messageButton;
 
     ImageButton playgame;
     FirebaseAuth auth;
@@ -61,6 +63,7 @@ public class Authentication extends AppCompatActivity {
         showMapBut = (ImageButton) findViewById(com.example.gameinwakingtoearn.R.id.showMapBut);
 
         settingsButton = (ImageButton) findViewById(com.example.gameinwakingtoearn.R.id.settingButtonAuthentication);
+        messageButton = (ImageButton)findViewById(R.id.messageButton);
         level = (TextView) findViewById(com.example.gameinwakingtoearn.R.id.level);
         progressBar = (ProgressBar) findViewById(R.id.xpProgressBar);
         friendBtn = (ImageButton)findViewById(R.id.findFriendButton);
@@ -87,7 +90,7 @@ public class Authentication extends AppCompatActivity {
 
                             User user = CurrentUser.getInstance().getUser();
                             Log.e("check user : ", user + " ");
-                           //textView.setText(document.getString("username"));
+                            //textView.setText(document.getString("username"));
 
                             textView.setText(user.getUsername());
 
@@ -131,6 +134,15 @@ public class Authentication extends AppCompatActivity {
             }
         });
 
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Authentication.this,MessageLayout.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +170,7 @@ public class Authentication extends AppCompatActivity {
         playgame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(Authentication.this, GameUI.class);
+                Intent i =new Intent(Authentication.this, PlayerCity.class);
                 User user = CurrentUser.getInstance().getUser();
 
                 FireBaseMangament.saveUserMoney((long)user.getMoney());

@@ -17,6 +17,8 @@ public class GameObject {
 
     private final int id;
 
+
+
     public GameObject(float x, float y, Context context, int id, int quatities_frame, int height,int width){
         this.x=x;
         this.y=y;
@@ -28,6 +30,11 @@ public class GameObject {
 
         this.id = id;
 
+    }
+
+    public GameObject(){
+        id =0;
+        image = null;
     }
 
     public void setContext(Context context){
@@ -82,12 +89,13 @@ public class GameObject {
     public float getPosY(){
         return this.image.getPos().top;
     }
+    public float getPosXOfGameObject(){ return this.x;}
+    public float getPosYOfGameObject(){ return this.y;}
     public void setPos(float x,float y){
         if(is_clicked) {
             this.x=x;
             this.y=y;
         }
-
     }
     public Rect getFrame(int i){
         return this.image.getFrame(i);

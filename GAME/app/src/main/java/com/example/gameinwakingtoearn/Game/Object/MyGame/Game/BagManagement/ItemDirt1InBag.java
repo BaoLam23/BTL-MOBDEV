@@ -13,12 +13,11 @@ import java.util.ArrayList;
 
 public class ItemDirt1InBag extends ItemInBag{
 
-    public static final int height = Dirt1.height;
-    public static final int width = Dirt1.width;
+
     public static final int id = R.drawable.grass_dark_1;
     public ItemDirt1InBag(float x, float y, Context context, ArrayList<Structure> city, ArrayList<Structure> dirt ) {
         super(x, y, context,city,dirt);
-        this.addItem(x,y,id ,height,width);
+        this.addItem(x,y,id );
     }
 
 

@@ -16,10 +16,16 @@ public abstract class Dirt extends Structure{
 
     public static final int height = 100;
     public static final int width = 100;
+    private Rect testCase;
     public Dirt(float x, float y, Context context, int id, String name, double cost, ArrayList<Structure> mycity,
                 ArrayList<Structure> myDirt,MyStore store, MyBag bag) {
         super(x, y, context, id, 0, height, width, name, cost,mycity,myDirt,store,bag);
     }
+
+   public Dirt(Rect rect){
+       this.testCase = rect;
+
+   }
 
     public boolean checkContainsStructure(){
         //kiểm tra xem có chứa căn nhà nào không
@@ -37,18 +43,24 @@ public abstract class Dirt extends Structure{
           return flag;
     }
 
+
+
+    public Rect getTestCase(){
+        return testCase;
+    }
+
     public static void fixPosOfDirt(Rect rect){
 
         //lấy được trọng tâm của ô đất
         int centerPosX = rect.left + (rect.right - rect.left)/2;
         int centerPosY = rect.top + (rect.bottom - rect.top)/2;
-        Log.e("check pos of dirt before revise :",centerPosX + " " + centerPosY);
+
 
         //kiểm tra và chỉnh sửa trọng tâm ô đất đó
         int leftFixed =(int) ((centerPosX - Game.AreaLeft)/(width)) * (width) + Game.AreaLeft;
         int topFixed = (int)((centerPosY- Game.AreaTop)/(height)) * (height) + Game.AreaTop;
 
-        Log.e("check pos of dirt after revise :",leftFixed + " " + topFixed);
+
         rect.set(leftFixed,topFixed,leftFixed + width,topFixed + height);
 
 

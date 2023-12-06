@@ -8,6 +8,8 @@ import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.GameObject;
 
 // xây dựng từng item trong một danh sách
 public class AItemInList extends GameObject {
+
+    public static final int distanceFromBorder = 30;
     private GameObject itemstored = null;
 
 
@@ -32,8 +34,8 @@ public class AItemInList extends GameObject {
         }
     }
 
-    public void addItem(float x,float y,int id,int height,int width){
-         itemstored=new GameObject(x,y,this.getContext(),id,0,height,width);
+    public void addItem(float x,float y,int id){
+         itemstored=new GameObject(x,y,this.getContext(),id,0,this.getImage().getHeight() - distanceFromBorder*2,this.getImage().getWidth() - distanceFromBorder*2);
     }
 
     public GameObject getItemstored(){

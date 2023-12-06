@@ -38,7 +38,7 @@ public class FriendItemAdapter extends
     public FriendItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_layout, parent, false);
+                .inflate(R.layout.user_friends_list, parent, false);
         return new FriendItemViewHolder(itemView);
     }
 
@@ -72,14 +72,14 @@ public class FriendItemAdapter extends
         public FriendItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            avatar = itemView.findViewById(R.id.avatar);
-            username = itemView.findViewById(R.id.username);
+            avatar = itemView.findViewById(R.id.avatarFriends);
+            username = itemView.findViewById(R.id.friendName);
 
 //            level = itemView.findViewById(R.id.level);
             addFriend = itemView.findViewById(R.id.imageView3);
 
-            iconXp = itemView.findViewById(R.id.xpIconOtherUsers);
-            level =  itemView.findViewById(R.id.levelOtherUsers);
+            iconXp = itemView.findViewById(R.id.xpIconFriends);
+            level =  itemView.findViewById(R.id.levelFriends);
 
 
             itemView.setOnClickListener(this);

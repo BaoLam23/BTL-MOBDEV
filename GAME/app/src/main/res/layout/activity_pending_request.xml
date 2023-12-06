@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/app_bg"
     tools:context=".Game.Object.MainUI.PendingRequest">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,9 +14,10 @@
         android:background="@drawable/backdrop"
         android:layout_height="556dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
+        android:background="#00FFFFFF"
         android:layout_height="wrap_content"
-        android:text="Back"/>
+        app:srcCompat="@drawable/back_button" />
 </LinearLayout>

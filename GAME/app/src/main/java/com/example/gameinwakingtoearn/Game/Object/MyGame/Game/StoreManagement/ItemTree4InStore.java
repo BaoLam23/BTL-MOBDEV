@@ -14,12 +14,12 @@ import com.example.gameinwakingtoearn.R;
 import java.util.ArrayList;
 
 public class ItemTree4InStore extends ItemInStore{
-    public static  final  int height = 100;
-    public static  final  int width = 100;
+
     public static final int id = R.drawable.tree_4;
+    public static final long levelRequired = 20;
     public ItemTree4InStore(float x, float y, Context context, MyBag b, ArrayList<Structure> city, ArrayList<Structure> dirt , MyStore myStore) {
-        super(x, y, context,b,city,dirt, (int) Tree4.cost,myStore);
-        this.addItem(x,y,id,height,width );
+        super(x, y, context,b,city,dirt, (int) Tree4.cost,myStore,levelRequired);
+        this.addItem(x,y,id );
     }
 
     @Override

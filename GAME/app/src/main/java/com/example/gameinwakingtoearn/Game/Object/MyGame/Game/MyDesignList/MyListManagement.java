@@ -54,7 +54,7 @@ public class MyListManagement {
 
 
 
-          this.menuItem=new ItemsList[this.Max_page_of_ListManagement];
+          this.menuItem=new ItemsList[this.Max_page_of_ListManagement ];
           this.menuItem[quatities_of_page]=new ItemsList(MAX_ITEM_IN_A_PAGE,Max_column,distant_between_items);
 
           preButton =new GameObject(0,0,context, idBackButton,0,heightOfPreButton,widthOfPreButton);
@@ -99,7 +99,7 @@ public class MyListManagement {
      public void checkIsClicked(float x,float y){
 
           nextButton.check_is_clicked(x,y);
-          if(nextButton.get_is_clicked() && this.current_page <this.quatities_of_page){
+          if(nextButton.get_is_clicked() && this.current_page < this.quatities_of_page){
                this.current_page++;
           }
           preButton.check_is_clicked(x,y);
@@ -117,19 +117,23 @@ public class MyListManagement {
      }
      public void addNewItem(AItemInList item, int distant_from_CenterBg){
 
-          //mỗi khi một danh sách đã đầy => thêm một danh sách mới vào dãy danh sách
-          if(menuItem[quatities_of_page].getQua_of_item()>=menuItem[quatities_of_page].getMaxItemInAPage()){
+          if(quatities_of_page < Max_page_of_ListManagement && quatities_of_page + 1 < Max_page_of_ListManagement) {
+               //mỗi khi một danh sách đã đầy => thêm một danh sách mới vào dãy danh sách
+               if (menuItem[quatities_of_page].getQua_of_item() >= menuItem[quatities_of_page].getMaxItemInAPage()) {
 
-               quatities_of_page++;
+                    quatities_of_page++;
 
-               menuItem[quatities_of_page] = new ItemsList(menuItem[0].getMaxItemInAPage(),
-                       menuItem[0].Max_column,
-                       menuItem[0].distant_between_items);
+
+                         menuItem[quatities_of_page] = new ItemsList(menuItem[0].getMaxItemInAPage(),
+                                 menuItem[0].Max_column,
+                                 menuItem[0].distant_between_items);
+
+               }
+
+               menuItem[quatities_of_page].addItem(item, this.background.getPos().left + 10,
+                       this.background.getPos().bottom - this.background.getPos().top, distant_from_CenterBg);
+               menuItem[quatities_of_page].setNumber_of_page(quatities_of_page + 1);
           }
-
-          menuItem[quatities_of_page].addItem(item,this.background.getPos().left+10,
-                  this.background.getPos().bottom-this.background.getPos().top,distant_from_CenterBg);
-          menuItem[quatities_of_page].setNumber_of_page(quatities_of_page +1);
      }
      public boolean getIs_quit(){
           return this.is_quit;
@@ -142,6 +146,7 @@ public class MyListManagement {
           return this.quatities_of_page;
      }
 
+
      public ItemsList[] getMenuItem(){
           return this.menuItem;
      }
@@ -151,6 +156,11 @@ public class MyListManagement {
      public ItemsList getLastPage(){
           return this.menuItem[quatities_of_page];
      }
+     public GameObject getPreButton(){return this.preButton; }
+     public GameObject getNextButtonButton(){return this.nextButton; }
+
+     public GameObject getQuitButton(){return this.quitButton; }
+
 
 
 

@@ -10,39 +10,43 @@
 
     <ListView
         android:id="@+id/musicList"
-        android:layout_width="match_parent"
         style="@style/CustomListViewStyle"
-        android:layout_height="559dp"
-         >
+        android:layout_width="match_parent"
+        android:layout_height="507dp">
 
     </ListView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="95dp"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/chooseMusicFromFile"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
+            android:layout_width="154dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:text="Choose Music"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/choose_music"
             map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintHorizontal_bias="0.169"
+            map:layout_constraintHorizontal_bias="0.062"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent" />
 
         <ToggleButton
             android:id="@+id/deleteMusicButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="choose music"
-            android:textOff="delete music"
-            map:layout_constraintBaseline_toBaselineOf="@+id/chooseMusicFromFile"
+            android:layout_width="154dp"
+            android:layout_height="60dp"
+            android:textOn=""
+            android:textOff=""
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/delete_music_toggle_style"
+            map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintHorizontal_bias="0.82"
-            map:layout_constraintStart_toStartOf="@+id/chooseMusicFromFile" />
+            map:layout_constraintHorizontal_bias="0.937"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintVertical_bias="0.826" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

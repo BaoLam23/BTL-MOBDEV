@@ -1,15 +1,18 @@
 package com.example.gameinwakingtoearn.Game.Object.Running;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.gameinwakingtoearn.Game.Object.MainUI.Authentication;
@@ -46,7 +50,7 @@ public class RunningStartUI extends AppCompatActivity {
 
     public static final int MY_REQUEST_WRITE_PERMISSION_CODE = 2;
 
-    private Button chooseMusicButton;
+    private ImageButton chooseMusicButton;
     private ToggleButton deleteButton;
 
 
@@ -58,6 +62,7 @@ public class RunningStartUI extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
 
     private   SharedPreferences sharedPreferences;
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
 
 
@@ -102,18 +107,13 @@ public class RunningStartUI extends AppCompatActivity {
         runButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RunningStartUI.this, RunningResumeUI.class);
-                Log.e("check music list before pull into next activity", musicList.size()+" ");
-
-                intent.putExtra("music list", musicList);
-                startActivity(intent);
-                finish();
+               checkPermissionBeforeRunningc();
             }
         });
 
 
 
-        chooseMusicButton = (Button)findViewById(R.id.chooseMusicFromFile);
+        chooseMusicButton = findViewById(R.id.chooseMusicFromFile);
         chooseMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,7 +167,7 @@ public class RunningStartUI extends AppCompatActivity {
         if (requestCode == request_Code && resultCode == RESULT_OK && data != null) {
             Uri selectedAudioUri = data.getData();
             if(selectedAudioUri != null) {
-
+               Log.e("check music path after inserting",selectedAudioUri.getPath());
                 musicList.add(selectedAudioUri.toString());
                 musicNameList.add(getNameOfMusic(selectedAudioUri.getPath()));
 
@@ -192,4 +192,51 @@ public class RunningStartUI extends AppCompatActivity {
 
         editor.apply();
     }
+
+
+    private void checkPermissionBeforeRunningc() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Kiểm tra xem quyền đã được cấp hay chưa, nếu chưa thì yêu cầu quyền từ người dùng
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PERMISSION_REQUEST_CODE);
+            } else {
+                Intent intent = new Intent(RunningStartUI.this, RunningResumeUI.class);
+                Log.e("check music list before pull into next activity", musicList.size()+" ");
+
+                intent.putExtra("music list", musicList);
+                startActivity(intent);
+                finish();
+            }
+        } else {
+            Intent intent = new Intent(RunningStartUI.this, RunningResumeUI.class);
+            Log.e("check music list before pull into next activity", musicList.size()+" ");
+
+            intent.putExtra("music list", musicList);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(RunningStartUI.this, RunningResumeUI.class);
+                Log.e("check music list before pull into next activity", musicList.size() + " ");
+
+                intent.putExtra("music list", musicList);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(RunningStartUI.this,"cant start if you dont permit External Reading",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
 }

@@ -36,7 +36,7 @@ public abstract class Structure extends GameObject {
     protected OptionsBar optionsBar;
     private boolean is_moved=false;
 
-    private final Paint paint;
+    private  Paint paint;
 
     private ArrayList<Structure> mycity;
     private ArrayList<Structure> myDirt;
@@ -76,6 +76,10 @@ public abstract class Structure extends GameObject {
 
         this.name = name;
         this.cost = cost;
+    }
+
+    public Structure(){
+        area = null;
     }
 
     @Override

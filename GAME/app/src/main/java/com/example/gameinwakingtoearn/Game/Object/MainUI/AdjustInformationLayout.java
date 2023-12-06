@@ -46,6 +46,11 @@ public class AdjustInformationLayout extends AppCompatActivity {
                    FireBaseMangament.changeNameUser(changeName.getText().toString());
                    Toast.makeText(AdjustInformationLayout.this,"change name successful",Toast.LENGTH_SHORT).show();
                }
+
+                if(!changePassWord.getText().toString().isEmpty()){
+                    FireBaseMangament.changePassword(changePassWord.getText().toString());
+                    Toast.makeText(AdjustInformationLayout.this,"change password successful",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

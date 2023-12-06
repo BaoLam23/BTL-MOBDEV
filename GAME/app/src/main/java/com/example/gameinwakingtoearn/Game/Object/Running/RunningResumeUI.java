@@ -1,5 +1,6 @@
 package com.example.gameinwakingtoearn.Game.Object.Running;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -66,10 +67,11 @@ public class RunningResumeUI extends FragmentActivity implements OnMapReadyCallb
     private float totalDistance = 0.0f;
     private long pauseOffset;
 
-    private Intent serviceIntent ;
+    private Intent serviceIntent;
     private Marker currentUserMarker; // To store the marker for user's current location
 
     public static final int MY_REQUEST_READ_PERMISSION_CODE = 1;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 3;
 
     private LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -107,22 +109,31 @@ public class RunningResumeUI extends FragmentActivity implements OnMapReadyCallb
                     MY_REQUEST_READ_PERMISSION_CODE);
         }
 
+        //yêu cầu quyển truy cập gps
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Yêu cầu quyền truy cập vị trí
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+        }
+
 
         caloriesTextView = findViewById(R.id.calories_text_view);
         distanceTextView = findViewById(R.id.distance_text_view);
         stepsTextView = findViewById(R.id.steps_text_view);
         chronometer = findViewById(R.id.chronometer);
 
-        controlButton = (ToggleButton)  findViewById(R.id.controlMoveButton);
-        stopButtom = (ImageButton)findViewById(R.id.stopButton);
+        controlButton = (ToggleButton) findViewById(R.id.controlMoveButton);
+        stopButtom = (ImageButton) findViewById(R.id.stopButton);
 
 
         controlButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     startLocationUpdates();
-                } else{
+                } else {
                     stopLocationUpdates();
                 }
             }
@@ -138,7 +149,6 @@ public class RunningResumeUI extends FragmentActivity implements OnMapReadyCallb
         });
 
 
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -147,18 +157,15 @@ public class RunningResumeUI extends FragmentActivity implements OnMapReadyCallb
 
 
         Intent intent = getIntent();
-        if(intent != null){
-            Log.e("pull music list into Music Service","active");
+        if (intent != null) {
+            Log.e("pull music list into Music Service", "active");
             MusicService.setMusicPathList(intent.getStringArrayListExtra("music list"));
         }
-
 
 
         serviceIntent = new Intent(this, MusicService.class);
 
         startService(serviceIntent);
-
-
 
 
     }
@@ -170,6 +177,7 @@ public class RunningResumeUI extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void lockOnCurrentLocation() {
+
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
             if (location != null && mMap != null) {
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());

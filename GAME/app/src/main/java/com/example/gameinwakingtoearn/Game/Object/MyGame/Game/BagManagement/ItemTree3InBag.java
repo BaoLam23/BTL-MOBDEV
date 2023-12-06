@@ -12,12 +12,11 @@ import com.example.gameinwakingtoearn.R;
 import java.util.ArrayList;
 
 public class ItemTree3InBag extends ItemInBag{
-    public static final int height = Tree3.height;
-    public static final int width = Tree3.width;
+
     public static final int id = R.drawable.tree_3;
     public  ItemTree3InBag(float x, float y, Context context, ArrayList<Structure> city, ArrayList<Structure> dirt) {
         super(x, y, context,city,dirt);
-        this.addItem(x,y,id ,height,width);
+        this.addItem(x,y,id );
     }
 
 

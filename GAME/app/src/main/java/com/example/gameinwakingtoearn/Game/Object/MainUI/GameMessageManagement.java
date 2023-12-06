@@ -10,6 +10,8 @@ import com.google.firebase.messaging.RemoteMessage;
 public class GameMessageManagement extends FirebaseMessagingService {
 
     //id của thiết bị đang cài đặt ứng dụng
+    private String messageUSer = "";
+
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
@@ -18,6 +20,16 @@ public class GameMessageManagement extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
-        Log.d("FCM message : ","Message " + message.getNotification().getBody() );
+        if (message.getData().size() > 0) {
+
+            this.messageUSer =message.getData().get(MessageLayout.keyMessage);
+            Log.e("Message",messageUSer);
+
+        }
+
+    }
+
+    public String getUserMessage(){
+        return this.messageUSer;
     }
 }

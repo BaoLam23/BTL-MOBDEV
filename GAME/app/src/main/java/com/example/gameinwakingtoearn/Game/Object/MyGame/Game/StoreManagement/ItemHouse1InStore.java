@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 public class ItemHouse1InStore extends ItemInStore {
 
-    public static  final  int height = 100;
-    public static  final  int width = 100;
+
     public static final int id = R.drawable.house_1;
+    public static final long levelRequired = 1;
     public ItemHouse1InStore(float x, float y, Context context, MyBag b, ArrayList<Structure> city, ArrayList<Structure> dirt , MyStore myStore) {
-        super(x, y, context,b,city,dirt, (int)House1.cost,myStore);
-        this.addItem(50,200,id,height,width );
+        super(x, y, context,b,city,dirt, (int)House1.cost,myStore,levelRequired);
+        this.addItem(50,200,id );
     }
 
 

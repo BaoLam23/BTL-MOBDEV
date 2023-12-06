@@ -72,6 +72,10 @@ public class MyStore extends GameObject {
         }
     }
 
+    public  StoreItemList getItemList(){
+        return this.itemList;
+    }
+
     public void setMoney(long money){
         this.money =money;
     }

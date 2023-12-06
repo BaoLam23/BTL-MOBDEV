@@ -51,6 +51,7 @@ public class FireBaseMangament {
     public static final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private static long userMoney = -1;
+    private static long userLevel = -1;
 
     private static List<String> structureId = new ArrayList<>();
 
@@ -58,6 +59,8 @@ public class FireBaseMangament {
     private  static   ArrayList<ItemInBag> bagList = new ArrayList<>();
 
     private static  String phoneToken;
+
+
 
     public static void setPhoneToken(){
         //lấy mã định danh của thiết bị
@@ -363,6 +366,10 @@ public class FireBaseMangament {
         // Check if there is a current user logged in before attempting to save.
         if (CurrentUser.getInstance().getUser() != null) {
 
+            if(phoneToken == null){
+                setPhoneToken();
+            }
+
             User currentUser = CurrentUser.getInstance().getUser();
 
             Map<String, Object> userUpdates = new HashMap<>();
@@ -373,6 +380,7 @@ public class FireBaseMangament {
             userUpdates.put("friendList", currentUser.getFriendList());
             userUpdates.put("buildings", currentUser.getBuildings());
             userUpdates.put("token", phoneToken);
+
             // Add other fields that you want to update
 
             // Get the database reference
@@ -417,7 +425,7 @@ public class FireBaseMangament {
                        // get money
 
                        userMoney = document.getLong("money");
-
+                       userLevel = document.getLong("level");
 
 
 
@@ -441,6 +449,13 @@ public class FireBaseMangament {
    public static long getUserMoney(){
         return userMoney;
    }
+    public static long getUserLevel(){
+        return userLevel;
+    }
+
+    public static void setPhakeLevel(long level){
+        userLevel = level;
+    }
 
 
 
@@ -449,6 +464,74 @@ public class FireBaseMangament {
    }
     public static ArrayList<ItemInBag> getBagList(){
         return bagList;
+    }
+
+    public static void changePassword(String newPassword){
+        firebaseUser.updatePassword(newPassword)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("change password", "User password updated.");
+                        }else{
+                            Log.d("change password", "failed");
+                        }
+                    }
+                });
+    }
+
+    public static void acceptRequest(String requestId) {
+
+        db.collection("friendRequests").document(requestId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+
+                        User user = CurrentUser.getInstance().getUser();
+
+                        String fromUserId = documentSnapshot.getString("fromUserId");
+                        String toUserId = documentSnapshot.getString("toUserId");
+
+                        user.getFriendList().add(fromUserId);
+
+                        WriteBatch batch = db.batch();
+
+                        DocumentReference fromUserRef = db.collection("users").document(fromUserId);
+                        DocumentReference toUserRef = db.collection("users").document(toUserId);
+
+                        batch.update(fromUserRef, "friendList", FieldValue.arrayUnion(toUserId));
+                        batch.update(toUserRef, "friendList", FieldValue.arrayUnion(fromUserId));
+
+                        DocumentReference requestRef = db.collection("friendRequests").document(requestId);
+                        batch.update(requestRef, "status", "accepted");
+
+                        batch.commit().addOnSuccessListener(aVoid -> {
+                            Log.d("AcceptRequest", "Friend request accepted and friend lists updated.");
+                        }).addOnFailureListener(e -> {
+                            Log.e("AcceptRequest", "Error updating friend lists", e);
+                        });
+
+                    } else {
+                        Log.d("AcceptRequest", "No such document");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("AcceptRequest", "Error getting friend request", e);
+                });
+    }
+
+
+
+    public static void declineRequest(String requestId) {
+
+        db.collection("friendRequests").document(requestId)
+                .update("status", "declined")
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("DeclineRequest", "Friend request declined successfully.");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("DeclineRequest", "Error declining friend request", e);
+                });
     }
 
 }

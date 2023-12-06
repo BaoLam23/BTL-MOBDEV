@@ -1,5 +1,6 @@
 package com.example.gameinwakingtoearn.Game.Object.Adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gameinwakingtoearn.Game.Object.MainUI.ItemClickedListener;
 import com.example.gameinwakingtoearn.Game.Object.Models.FriendReqItem;
 import com.example.gameinwakingtoearn.Game.Object.Models.Item;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
 import com.example.gameinwakingtoearn.R;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.List;
 
@@ -50,7 +55,27 @@ public class FriendReqItemAdapter extends
         holder.level.setText(item.getLevel());
         holder.acceptIcon.setImageResource(item.getAcceptIcon());
         holder.declineIcon.setImageResource(item.getDeclineIcon());
+
+        holder.acceptIcon.setOnClickListener(view -> {
+            Log.e("accept Icon clicked ","ok");
+            if(itemList.size() > position){
+                FireBaseMangament.acceptRequest(itemList.get(position).getId());
+                itemList.remove(position);
+                this.notifyDataSetChanged();
+
+            }
+        });
+
+        holder.declineIcon.setOnClickListener(view -> {
+            Log.e("decline Icon clicked ","ok");
+            FireBaseMangament.declineRequest(itemList.get(position).getId());
+            itemList.remove(position);
+            this.notifyDataSetChanged();
+        });
     }
+
+
+
 
     @Override
     public int getItemCount() {

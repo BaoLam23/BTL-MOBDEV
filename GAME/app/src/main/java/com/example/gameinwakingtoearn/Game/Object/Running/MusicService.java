@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -12,6 +13,8 @@ import androidx.core.app.ActivityCompat;
 
 import org.checkerframework.checker.units.qual.A;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,28 +65,33 @@ public class MusicService extends Service {
 
             Uri musicUri = Uri.parse(musicPath);
             Log.e("check music path : ", musicUri.getPath() + "");
+
             if(mediaPlayer != null){
                 Log.e("check media player","not null");
             }
-            mediaPlayer.setDataSource(getApplicationContext(), musicUri);
-
-
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    setIndex(getIndex() + 1);
-                    if (getIndex() > mediaLists.size()) {
-                        setIndex(mediaLists.size() + 1);
-                    }
-                    playMusic(index);
-
+            if(musicUri.getPath() == null) {
+                Log.e("music Uri Path :","null");
+            }
+                try {
+                    mediaPlayer.setDataSource(getApplicationContext(), musicUri);
+                } catch (Exception e) {
+                    Log.e("media player setDataSource error : ", e.getMessage() + " caused by " + e.getCause());
                 }
-            });
 
-        } catch (IOException e) {
-            Log.e("error at create song at MusicService",e.getMessage() + "\n" + e.getCause());
-            e.printStackTrace();
-        } catch (Exception e){
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        setIndex(getIndex() + 1);
+                        if (getIndex() > mediaLists.size()) {
+                            setIndex(mediaLists.size() + 1);
+                        }
+                        playMusic(index);
+
+                    }
+                });
+
+
+        }  catch (Exception e){
             Log.e("error at create song at MusicService",e.getMessage() + "\n" + e.getCause());
         }
 

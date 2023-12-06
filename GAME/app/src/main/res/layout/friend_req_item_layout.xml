@@ -6,15 +6,18 @@
     android:layout_height="120dp"
     android:background="@drawable/settings_bg">
 
+
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_width="72dp"
+        android:layout_height="68dp"
         android:layout_marginStart="33dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="251dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="250dp"
         android:src="@drawable/user2"
-        app:layout_constraintEnd_toStartOf="@+id/declineIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/acceptIcon"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,69 +25,69 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="213dp"
         android:fontFamily="@font/karantina_regular"
         android:text="Username"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/xpIconOtherUsers"
-        android:layout_width="112dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="124dp"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="71dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/xp_badge" />
+        app:layout_constraintHorizontal_bias="0.697"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/levelOtherUsers"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="221dp"
-        android:layout_marginEnd="80dp"
-        android:fontFamily="@font/karantina_regular"
-        android:text="1"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/acceptIcon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/xpIconOtherUsers"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/xp_badge" />
 
-    <ImageView
-        android:id="@+id/acceptIcon"
-        android:layout_width="44dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="39dp"
-        android:src="@drawable/accept"
-        app:layout_constraintBottom_toTopOf="@+id/declineIcon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/levelOtherUsers"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
+        <TextView
+            android:id="@+id/levelOtherUsers"
+            android:layout_width="61dp"
+            android:layout_height="match_parent"
+
+            android:fontFamily="@font/karantina_regular"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="40sp" />
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/declineIcon"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginEnd="39dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/decline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toBottomOf="@+id/acceptIcon" />
+        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <ImageView
+        android:id="@+id/acceptIcon"
+        android:layout_width="35dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/accept"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.533" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

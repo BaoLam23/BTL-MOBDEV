@@ -13,6 +13,9 @@ import android.widget.ImageButton;
 
 import com.example.gameinwakingtoearn.Game.Object.Adapters.FriendItemAdapter;
 import com.example.gameinwakingtoearn.Game.Object.Models.Item;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FireBaseMangament;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FriendsCityUI;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.FriendsFireBase;
 import com.example.gameinwakingtoearn.Game.Object.User.CurrentUser;
 import com.example.gameinwakingtoearn.Game.Object.User.User;
 import com.example.gameinwakingtoearn.R;
@@ -25,12 +28,15 @@ public class Friends extends AppCompatActivity implements ItemClickedListener {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     List<Item> itemList;
+    List<User> playerFriends = new ArrayList<>();
     FriendItemAdapter friendItemAdapter;
     RecyclerView recyclerView;
-    Button findFriendBtn;
-    Button goToFriendReqBtn;
+    ImageButton findFriendBtn;
+    ImageButton goToFriendReqBtn;
     ImageButton backBtn;
     User user = CurrentUser.getInstance().getUser();
+
+    public static String KEY_FRIENDS_ID = "id";
 
 
     @Override
@@ -69,6 +75,7 @@ public class Friends extends AppCompatActivity implements ItemClickedListener {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PendingRequest.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -81,10 +88,12 @@ public class Friends extends AppCompatActivity implements ItemClickedListener {
                         if (documentSnapshot.exists()) {
                             User friend = documentSnapshot.toObject(User.class);
                             assert friend != null;
+
                             Item item = new Item(R.drawable.user2, R.drawable.xp_badge,
-                                                R.drawable.friends, friend.getUsername(),
-                                                String.valueOf(friend.getLevel()));
+                                    R.drawable.friends, friend.getUsername(),
+                                    String.valueOf(friend.getLevel()));
                             itemList.add(item);
+                            playerFriends.add(friend);
 
                             if (friendItemAdapter == null) {
 
@@ -111,6 +120,13 @@ public class Friends extends AppCompatActivity implements ItemClickedListener {
 
     @Override
     public void onClick(View view, int pos) {
-
+         Log.e("you want to visit ", playerFriends.get(pos).getUid());
+         Intent intent = new Intent(Friends.this,LoadingFriendCity.class);
+         intent.putExtra(KEY_FRIENDS_ID,playerFriends.get(pos).getUid());
+         startActivity(intent);
     }
+
+
+
+
 }

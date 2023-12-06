@@ -88,4 +88,3 @@ public class User {
 
 //    User currentUser = CurrentUser.getInstance().getUser();
 //currentUser.setMoney(newMoneyValue);
-

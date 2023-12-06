@@ -38,11 +38,11 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.493" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonSendRequest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send Request"
+            android:background="@drawable/send_request"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

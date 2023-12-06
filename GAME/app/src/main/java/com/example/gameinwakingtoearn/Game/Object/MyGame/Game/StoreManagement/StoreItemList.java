@@ -28,6 +28,15 @@ public class StoreItemList extends MyListManagement {
     public static final int id = R.drawable.backdrop;
     public static final  int idMoney = R.drawable.balance;
 
+    public static  final int house1 = 0;
+    public static  final int house2 = 1;
+    public static  final int house3 = 2;
+    public static  final int tree1 = 0;
+    public static  final int tree2 = 1;
+    public static  final int tree3 = 2;
+    public static  final int tree4 = 0;
+    public static  final int dirt = 1;
+
     // chứa danh sách của từng item nhà một
     public StoreItemList(Context context, float x, float y, MyBag bag, ArrayList<Structure> city, ArrayList<Structure> dirt ,
                          MyStore myStore) {
@@ -65,6 +74,7 @@ public class StoreItemList extends MyListManagement {
 
 
     }
+
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);

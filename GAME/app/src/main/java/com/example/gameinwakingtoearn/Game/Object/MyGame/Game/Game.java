@@ -20,6 +20,7 @@ import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Dir
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.CityStructures.Structure;
 
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.MyDesignList.ItemsList;
+import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.OptionsBar.BackOption;
 import com.example.gameinwakingtoearn.Game.Object.MyGame.Game.StoreManagement.MyStore;
 
 import java.util.ArrayList;
@@ -29,12 +30,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private GameLoop gameloop;
 
 
-    private final Context context;
+    protected final Context context;
 
-    private ArrayList<Structure> mycity=new ArrayList<Structure>();
-    private ArrayList<Structure> myDirt=new ArrayList<Structure>();
-    private MyStore myStore;
-    private MyBag mybag;
+    protected ArrayList<Structure> mycity=new ArrayList<Structure>();
+    protected ArrayList<Structure> myDirt=new ArrayList<Structure>();
+    protected MyStore myStore;
+    protected MyBag mybag;
+
+    private BackOption backOption;
+    private GameSurfaceViewListener listener;
 
 
     public static final int AreaTop = 50;
@@ -50,12 +54,20 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     private GameObject gameObjectIsClicked = null;
 
+    public static final boolean host = true;
+    public static final boolean clients = false;
+
+    private boolean checkPermission;
+
 
     //toàn bộ hàm khời tạo game để thiết lập j j đó :vv
-    public Game(Context context,long moneyOfUser) {
+    public Game(Context context,long moneyOfUser, boolean checkPermission,GameSurfaceViewListener game) {
         super(context);
         Log.e("construct game", "ok");
         this.context=context;
+
+        this.checkPermission = checkPermission;
+        this.setGameListener(game);
 
         // khởi tạo hàm surfaceholder và thêm hàm callback
         SurfaceHolder surfaceholder=getHolder();
@@ -71,13 +83,21 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         Log.e("check length of phone : ", Game.getScreenWidth()+"");
         Log.e("check height of phone : ", Game.getScreenHeight()+"");
 
+
         this.mybag=new MyBag(10,Game.getScreenHeight()-150- MyBag.height,context,mycity,myDirt,myStore);
 
 
         this.myStore=new MyStore(this.getScreenWidth()-MyStore.width - 10,Game.getScreenHeight()-150- MyStore.height,context,this.mybag,mycity,myDirt,moneyOfUser);
 
+        this.backOption = new BackOption(this.getScreenWidth()/2-BackOption.width/2 ,Game.getScreenHeight()-150- BackOption.height,context);
 
+        pushDataFromFireBaseIntoGame();
 
+         paint.setColor(Color.rgb(185,122,87));
+        setFocusable(true);
+    }
+
+    public void pushDataFromFireBaseIntoGame(){
         myStore.setMoney(FireBaseMangament.getUserMoney());
         Log.e("structure size :", FireBaseMangament.getStructuresList().size() + "");
 
@@ -122,10 +142,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-
-
-         paint.setColor(Color.rgb(185,122,87));
-        setFocusable(true);
     }
 
 
@@ -133,82 +149,105 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event){
         // hàm dùng để xử lý cách sự kiện ấn nút các thứ
-        switch(event.getAction()){
 
-            case MotionEvent.ACTION_DOWN:
+            switch (event.getAction()) {
 
-                if(gameObjectIsClicked == null) {
+                case MotionEvent.ACTION_DOWN:
 
-                        myStore.check_is_clicked(event.getX(), event.getY());
-                        if(myStore.is_clicked){
-                            gameObjectIsClicked = myStore;
+                    if (gameObjectIsClicked == null) {
+                        backOption.check_is_clicked(event.getX(), event.getY());
+                        if(backOption.is_clicked){
+                            gameObjectIsClicked = backOption;
                             return true;
                         }
 
+                        if(this.checkPermission == host) {
 
-                        mybag.check_is_clicked(event.getX(), event.getY());
-                    if(mybag.is_clicked){
-                        gameObjectIsClicked = mybag;
-                        return true;
-                    } else{
-                        if(mybag.getStructureSymbol() != null) {
-                            gameObjectIsClicked = mybag.getStructureSymbol();
-                            return true;
-                        }
-
-                    }
-
-
-                    for (Structure s : mycity) {
-
-
-                            s.check_is_clicked(event.getX(), event.getY());
-                            if(s.is_clicked){
-                                gameObjectIsClicked = s;
+                            myStore.check_is_clicked(event.getX(), event.getY());
+                            if (myStore.is_clicked) {
+                                gameObjectIsClicked = myStore;
                                 return true;
                             }
 
+
+                            mybag.check_is_clicked(event.getX(), event.getY());
+                            if (mybag.is_clicked) {
+                                gameObjectIsClicked = mybag;
+                                return true;
+                            } else {
+                                if (mybag.getStructureSymbol() != null) {
+                                    gameObjectIsClicked = mybag.getStructureSymbol();
+                                    return true;
+                                }
+
+                            }
+
+
+                            for (Structure s : mycity) {
+
+
+                                s.check_is_clicked(event.getX(), event.getY());
+                                if (s.is_clicked) {
+                                    gameObjectIsClicked = s;
+                                    return true;
+                                }
+
+                            }
+
+                            for (Structure s : myDirt) {
+
+
+                                s.check_is_clicked(event.getX(), event.getY());
+                                if (s.is_clicked) {
+                                    gameObjectIsClicked = s;
+                                    return true;
+                                }
+
+                            }
+                        }
+                    } else {
+                        gameObjectIsClicked.check_is_clicked(event.getX(), event.getY());
+                        if (!gameObjectIsClicked.is_clicked) {
+                            gameObjectIsClicked = null;
+                        }
                     }
+
+                    return true;
+                case MotionEvent.ACTION_MOVE:
+                    // xử lý vị trí của đối tượng mỗi khi con chuột di chuyển
 
                     for (Structure s : myDirt) {
-
-
-                        s.check_is_clicked(event.getX(), event.getY());
-                        if(s.is_clicked){
-                            gameObjectIsClicked = s;
-                            return true;
-                        }
-
+                        s.setPos(event.getX(), event.getY());
                     }
-                } else{
-                    gameObjectIsClicked.check_is_clicked(event.getX(), event.getY());
-                    if(!gameObjectIsClicked.is_clicked){
-                        gameObjectIsClicked = null;
+
+                    for (Structure s : mycity) {
+                        s.setPos(event.getX(), event.getY());
                     }
-                }
+                    mybag.setPosOfStucture(event.getX(), event.getY());
+                    return true;
+                case MotionEvent.ACTION_UP:
 
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                // xử lý vị trí của đối tượng mỗi khi con chuột di chuyển
+                    return true;
 
-                for(Structure s:myDirt){
-                    s.setPos(event.getX(),event.getY());
-                }
+            }
 
-                for(Structure s:mycity){
-                    s.setPos(event.getX(),event.getY());
-                }
-                mybag.setPosOfStucture(event.getX(),event.getY());
-                return true;
-            case MotionEvent.ACTION_UP:
 
-                return true;
+            return super.onTouchEvent(event);
 
+    }
+
+
+
+    // Phương thức để thiết lập người nghe (listener)
+    public void setGameListener(GameSurfaceViewListener listener) {
+        this.listener = listener;
+    }
+
+    // Phương thức gọi khi cần thông báo về việc kết thúc
+    private void notifyFinishgame() {
+        if (listener != null) {
+            listener.onGameFinished();
         }
-
-
-
-        return super.onTouchEvent(event);
     }
 
 
@@ -225,8 +264,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-         Log.e("game end :","true");
-         saveData();
+
+        if(this.checkPermission == host) {
+            Log.e("game end :", "true");
+            saveData();
+        }
     }
     //hàm vẽ chính của game
     @Override
@@ -242,34 +284,46 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         for(Structure s:mycity){
             s.draw(canvas);
         }
-        if(!myStore.get_is_clicked()){
-            mybag.draw(canvas);
+
+        if(this.checkPermission == host) {
+            if (!myStore.get_is_clicked()) {
+                mybag.draw(canvas);
+            }
+            if (!mybag.get_is_clicked()) {
+                myStore.draw(canvas);
+            }
+
         }
-        if(!mybag.get_is_clicked()) {
-            myStore.draw(canvas);
+        if (!mybag.get_is_clicked() && !myStore.get_is_clicked()) {
+            backOption.draw(canvas);
         }
 
-        if(gameObjectIsClicked != null){
+        if (gameObjectIsClicked != null) {
             gameObjectIsClicked.draw(canvas);
         }
-
 
 
     }
 
 
     public void update() {
-        for(Structure s:mycity){
-            s.update();
+        if(this.checkPermission == host) {
+            for (Structure s : mycity) {
+                s.update();
+            }
+
+            for (Structure s : myDirt) {
+                s.update();
+            }
+
+            this.mybag.update();
+            this.myStore.update();
         }
 
-        for(Structure s:myDirt){
-            s.update();
+        if(backOption.is_clicked){
+            Log.e("finish game","ok");
+           this.notifyFinishgame();
         }
-
-        this.mybag.update();
-        this.myStore.update();
-
 
 
     }
@@ -294,6 +348,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
             Log.e("check pos strucutre in game before saving ", s.getName() + " " + s.getSaveLeft() +" " + s.getSaveTop() );
             s.setStatus(true);
             saveStructList.add(s);
+
         }
 
 

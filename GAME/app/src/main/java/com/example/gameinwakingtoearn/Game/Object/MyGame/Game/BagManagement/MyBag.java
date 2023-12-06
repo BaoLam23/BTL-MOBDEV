@@ -206,8 +206,8 @@ public GameObject getStructureSymbol(){
 
         if(structureSymbol != null) {
             this.structureSymbol.update();
-            this.option.update((int) structureSymbol.getPosX()
-                    ,(int) structureSymbol.getPosY()+this.structureSymbol.getImage().getBitmap().getHeight());
+            this.option.update((int) structureSymbol.getPosXOfGameObject()
+                    ,(int) structureSymbol.getPosYOfGameObject()+this.structureSymbol.getImage().getBitmap().getHeight());
 
         }
     }

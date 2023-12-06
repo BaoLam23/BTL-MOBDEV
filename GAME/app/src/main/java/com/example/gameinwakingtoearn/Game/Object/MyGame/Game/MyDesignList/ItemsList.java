@@ -49,24 +49,29 @@ public class ItemsList {
     public void addItem(AItemInList item,float x,float y, int distant_from_CenterBg){
 
         if(this.qua_of_item<MAX_ITEM_IN_A_PAGE) {
-            Log.e("check :",qua_of_item/Max_column+"");
+            if (item != null && item.getImage() != null && item.getContext() != null) {
 
             // thuật toán xây dựng cơ chế set vij trí cho từng item của list : thay vì dùng if,else => dùng quy tắc hash thông qua phép % hoặc / tùy cơ ứng biến
 
-            item.getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getImage().getWidth())+this.distant_between_items),
-                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column)+distant_from_CenterBg,
-                    (int) (x+20+item.getImage().getWidth()+(qua_of_item % Max_column)*(item.getImage().getWidth())+this.distant_between_items),
-                    (int) (y/2+item.getImage().getHeight()) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column)+distant_from_CenterBg);
+                int leftItem = (int) (x + 20 + (qua_of_item % Max_column) * (item.getImage().getWidth() + this.distant_between_items ));
+                int topItem = (int) (y / 2) + (item.getImage().getBitmap().getHeight() + 3) * (qua_of_item / Max_column) + distant_from_CenterBg;
+                int rightItem = leftItem + item.getImage().getWidth();
+                int bottomItem = topItem + item.getImage().getHeight();
+
+                item.getImage().setPos(leftItem, topItem, rightItem, bottomItem);
 
             //set vị trí cho thành phần bên trong của items
-            item.getItemstored().getImage().setPos((int) (x+20+(qua_of_item % Max_column)*(item.getImage().getWidth())+this.distant_between_items),
-                    (int) (y/2) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column) +distant_from_CenterBg,
-                    (int) (x+20+item.getImage().getWidth()+(qua_of_item % Max_column)*(item.getImage().getWidth()+this.distant_between_items)),
-                    (int) (y/2+item.getImage().getHeight()) + (item.getImage().getBitmap().getHeight()+3) * (qua_of_item/Max_column) +distant_from_CenterBg);
+                int leftItemStored = (int) (leftItem + AItemInList.distanceFromBorder );
+                int topItemStored = (int) (topItem +  AItemInList.distanceFromBorder ) ;
+                int rightItemStored = leftItemStored + item.getItemstored().getImage().getWidth();
+                int bottomItemStored = topItemStored + item.getItemstored().getImage().getHeight();
+
+            item.getItemstored().getImage().setPos(leftItemStored, topItemStored, rightItemStored, bottomItemStored);
 
 
-            this.mylist[this.qua_of_item]=item;
+            this.mylist[this.qua_of_item] = item;
             this.qua_of_item++;
+          }
         }
 
     }
@@ -75,7 +80,7 @@ public class ItemsList {
     }
 
     public void check_is_clicked(float x,float y){
-         Log.e("item list ","clicked ");
+
         for(int i=0;i<qua_of_item;i++){
             mylist[i].check_is_clicked(x,y);
         }
