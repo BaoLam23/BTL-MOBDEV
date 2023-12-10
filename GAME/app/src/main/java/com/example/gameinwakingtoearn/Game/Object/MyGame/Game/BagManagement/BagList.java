@@ -125,6 +125,9 @@ public class BagList extends MyListManagement {
     public void setWas_Structure_Thrown(boolean b){
         this.Was_Structure_Thrown = b;
     }
+    public int getIndexOfItemNeedThrown(){
+        return this.indexOfItemNeedThrown;
+    }
 
     public GameObject throwStrutures(){
 

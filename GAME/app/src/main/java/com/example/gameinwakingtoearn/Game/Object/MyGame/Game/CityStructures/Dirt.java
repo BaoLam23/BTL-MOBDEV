@@ -52,8 +52,8 @@ public abstract class Dirt extends Structure{
     public static void fixPosOfDirt(Rect rect){
 
         //lấy được trọng tâm của ô đất
-        int centerPosX = rect.left + (rect.right - rect.left)/2;
-        int centerPosY = rect.top + (rect.bottom - rect.top)/2;
+        int centerPosX = (rect.left + rect.right )/2;
+        int centerPosY = (rect.top + rect.bottom)/2;
 
 
         //kiểm tra và chỉnh sửa trọng tâm ô đất đó
